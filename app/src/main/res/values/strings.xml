@@ -13,4 +13,6 @@
     <string name="Logout">LOGOUT</string>
     <string name="GetOTP">Get OTP</string>
     <string name="Mobhint">Enter Mobile No.</string>
+    <string name="Our_logo">A chirping bird</string>
+    <string name="Splashscreen_msg">Welcome to Chirper!</string>
 </resources>
