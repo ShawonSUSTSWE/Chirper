@@ -32,18 +32,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.core.Tag;
 
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.TimeUnit;
 
 import java.util.EnumMap;
+
+import static android.os.SystemClock.sleep;
 
 
 public class SignUpActivity extends AppCompatActivity {
 
 
     ActivitySignUpBinding mActivitySignUpBinding;
-    private FirebaseAuth auth;
+    FirebaseAuth auth;
     FirebaseDatabase mDatabase;
     ProgressDialog progressDialog;
     FirebaseUser mFirebaseUser;
+    boolean possible = false;
+    final int time = 600;
+    ProgressDialog progressDialog2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +58,23 @@ public class SignUpActivity extends AppCompatActivity {
         //Attribution should be given to freepik from flaticon.com
         super.onCreate(savedInstanceState);
 
+
         mActivitySignUpBinding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(mActivitySignUpBinding.getRoot());
 
         getSupportActionBar().hide();
         auth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance();
+        mDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
 
         progressDialog = new ProgressDialog(SignUpActivity.this);
         progressDialog.setTitle("Creating Account");
         progressDialog.setMessage("Your account is being created");
 
-        boolean possible = true;
+        progressDialog2 = new ProgressDialog(SignUpActivity.this);
+        progressDialog2.setTitle("Verification Email");
+        progressDialog2.setMessage("Sending verification email");
+
 
         mActivitySignUpBinding.signup.setOnClickListener(new View.OnClickListener() {
 
@@ -99,6 +111,16 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        mActivitySignUpBinding.signinswitcher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent2 = new Intent(SignUpActivity.this, SignInActivity.class);
+                startActivity(intent2);
+                finish();
+
+            }
+        });
 
     }
     public void createAccount() {
@@ -106,7 +128,7 @@ public class SignUpActivity extends AppCompatActivity {
         progressDialog.show();
         auth.createUserWithEmailAndPassword
                 (mActivitySignUpBinding.email.getText().toString(), mActivitySignUpBinding.password.getText().toString()).
-                addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
 
                     @Override
@@ -116,18 +138,33 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             progressDialog.dismiss();
+                            progressDialog2.show();
+                            mFirebaseUser = auth.getCurrentUser();
 
-                            progressDialog.show();
-                            Users user = new Users(mActivitySignUpBinding.username.getText().toString(),
-                                    mActivitySignUpBinding.email.getText().toString(),
-                                    mActivitySignUpBinding.password.getText().toString());
+                            mFirebaseUser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog2.dismiss();
+                                    Toast.makeText(SignUpActivity.this,"Must verify before continuing",Toast.LENGTH_SHORT).show();
+                                    String id = mFirebaseUser.getUid();
+                                    Users user = new Users(mActivitySignUpBinding.username.getText().toString(),
+                                            mActivitySignUpBinding.email.getText().toString(),
+                                            mActivitySignUpBinding.password.getText().toString());
+                                    mDatabase.getReference().child("Users").child(id).setValue(user);
+                                    Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                                    startActivity(intent);
+                                    finish();
 
-                            String id = task.getResult().getUser().getUid();
-                            mDatabase.getReference().child("Users").child(id).setValue(user);
-                            Toast.makeText(SignUpActivity.this, "User created successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignUpActivity.this, Dashboard.class);
-                            startActivity(intent);
-                            finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull @NotNull Exception e) {
+                                    Toast.makeText(SignUpActivity.this, " " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
+
 
                         } else {
 
