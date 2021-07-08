@@ -9,15 +9,19 @@
         android:roundIcon="@mipmap/chirper_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chirper">
-        <activity android:name=".SignInActivity01"></activity>
-        <activity android:name=".SignUpActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".SignInActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".Splashscreen" />
+        <activity android:name=".SignUpActivity">
+
+        </activity>
+        <activity android:name=".Splashscreen" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".Dashboard" />
         <activity android:name=".Manageotp" />
         <activity android:name=".MainActivity" />

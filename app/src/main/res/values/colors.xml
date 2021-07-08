@@ -7,13 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="splashscreen_bg">#C1C8E4</color>
+    <color name="splashscreen_bg">#fcf6f5ff</color>
+    <color name="back">#89abe3ff</color>
+    <color name="test">#30c9e8</color>
 
     <color name="colorPrimary">#0b6156</color>
     <color name="colorPrimaryDark">#095049</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="lightGrey">#EDEDED</color>
-    <color name="ChirperColor">#0b6156</color>
+    <color name="ChirperColor">#5ab9ea</color>
     <color name="red">#9F0B0B</color>
     <color name="status_background">#009688</color>
     <color name="chat_background">#8BC34A</color>
