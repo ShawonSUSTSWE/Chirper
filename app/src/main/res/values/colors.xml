@@ -10,6 +10,8 @@
     <color name="splashscreen_bg">#fcf6f5ff</color>
     <color name="back">#89abe3ff</color>
     <color name="test">#30c9e8</color>
+    <color name="dashboard_bg">#E6E6FA</color>
+    <color name="dashboardbg1">#F2F8FF</color>
 
     <color name="colorPrimary">#0b6156</color>
     <color name="colorPrimaryDark">#095049</color>

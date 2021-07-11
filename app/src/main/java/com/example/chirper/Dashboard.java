@@ -13,15 +13,19 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.chirper.databinding.ActivityDashboardBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Dashboard extends AppCompatActivity
 {
 
-    FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth mFirebaseAuth;
     private ActivityDashboardBinding mActivityDashboardBinding;
     FirebaseUser mFirebaseUser;
+    GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

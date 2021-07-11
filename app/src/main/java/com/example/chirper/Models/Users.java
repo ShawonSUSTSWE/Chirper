@@ -2,25 +2,23 @@ package com.example.chirper.Models;
 
 public class Users {
 
-    String profile_picture, username, email, password, lastmsg, userId, phoneNo;
+    String profile_picture, username, email, lastmsg, userId, phoneNo;
     boolean verified_email;
 
-    public Users(String profile_picture, String username, String email, String password, String lastmsg, String userId) {
+    public Users(String profile_picture, String username, String email, String lastmsg, String userId) {
 
         this.profile_picture = profile_picture;
         this.username = username;
         this.email = email;
-        this.password = password;
         this.lastmsg = lastmsg;
         this.userId = userId;
 
     }
-    public Users(String profile_picture, String username, String phoneNo, String password, String lastmsg, String userId, int num) {
+    public Users(String profile_picture, String username, String phoneNo, String lastmsg, String userId, int num) {
 
         this.profile_picture = profile_picture;
         this.username = username;
         this.phoneNo = phoneNo;
-        this.password = password;
         this.lastmsg = lastmsg;
         this.userId = userId;
 
@@ -36,19 +34,17 @@ public class Users {
     public  Users() {}
 
     // This is used for signup with email
-    public Users(String username, String email, String password) {
+    public Users(String username, String email ) {
 
         this.username = username;
         this.email = email;
-        this.password = password;
 
     }
 
     //Signup with mobile
-    public Users ( String username, String phoneNo, String password, int number ) {
+    public Users ( String username, String phoneNo, int number ) {
         this.username = username;
         this.phoneNo = phoneNo;
-        this.password = password;
     }
 
     public boolean isVerified_email() {
@@ -88,16 +84,6 @@ public class Users {
         this.email = email;
     }
 
-    public String getPassword() {
-
-        return password;
-    }
-
-    public void setPassword(String password) {
-
-        this.password = password;
-    }
-
     public String getLastmsg() {
 
         return lastmsg;
@@ -118,9 +104,11 @@ public class Users {
         this.userId = userId;
     }
     public String getPhoneNo (String phoneNo) {
+
         return phoneNo;
     }
     public void setPhoneNo (String phoneNo) {
+
         this.phoneNo = phoneNo;
     }
 

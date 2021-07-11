@@ -82,7 +82,8 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="100dp"
-            android:text="Sign Up" />
+            android:text="Sign Up"
+            app:cornerRadius = "100dp"/>
 
         <Button
             android:id="@+id/proceed"
@@ -93,7 +94,8 @@
             android:layout_marginRight="100dp"
             android:layout_marginBottom="15dp"
             android:text="Proceed"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:cornerRadius = "100dp"/>
 
 
 
@@ -116,7 +118,7 @@
                 android:paddingTop="4dp"
                 android:text="Google"
                 android:textColor="@color/black"
-                app:cornerRadius="4dp" />
+                app:cornerRadius = "100dp" />
 
             <Button
                 android:id="@+id/fb1"
@@ -130,7 +132,7 @@
                 android:drawableLeft="@drawable/fb"
                 android:paddingTop="4dp"
                 android:text="Facebook"
-                app:cornerRadius="4dp" />
+                app:cornerRadius = "100dp" />
         </LinearLayout>
 
         <TextView

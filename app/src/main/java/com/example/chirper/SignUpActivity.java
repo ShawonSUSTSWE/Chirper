@@ -122,6 +122,17 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        mActivitySignUpBinding.signupphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent phone_intent = new Intent(SignUpActivity.this, MainActivity.class);
+                startActivity(phone_intent);
+                finish();
+
+            }
+        });
+
     }
     public void createAccount() {
 
@@ -148,8 +159,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     Toast.makeText(SignUpActivity.this,"Must verify before continuing",Toast.LENGTH_SHORT).show();
                                     String id = mFirebaseUser.getUid();
                                     Users user = new Users(mActivitySignUpBinding.username.getText().toString(),
-                                            mActivitySignUpBinding.email.getText().toString(),
-                                            mActivitySignUpBinding.password.getText().toString());
+                                            mActivitySignUpBinding.email.getText().toString());
                                     mDatabase.getReference().child("Users").child(id).setValue(user);
                                     Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
                                     startActivity(intent);
