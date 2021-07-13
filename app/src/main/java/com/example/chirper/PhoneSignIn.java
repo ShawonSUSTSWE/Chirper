@@ -3,6 +3,7 @@ package com.example.chirper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -59,6 +60,17 @@ public class PhoneSignIn extends AppCompatActivity {
 
                 }
 
+
+            }
+        });
+
+        mActivityPhoneSignInBinding.emailsignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent emailintent = new Intent(PhoneSignIn.this, SignInActivity.class);
+                startActivity(emailintent);
+                finish();
 
             }
         });

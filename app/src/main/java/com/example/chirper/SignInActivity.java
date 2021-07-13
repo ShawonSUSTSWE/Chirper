@@ -67,7 +67,7 @@ public class SignInActivity extends AppCompatActivity {
 
         super.onStart();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if(mFirebaseUser!=null) {
+        if(mFirebaseUser!=null && mFirebaseUser.isEmailVerified()) {
 
             Intent intent_first = new Intent(SignInActivity.this, Dashboard.class);
             startActivity(intent_first);
@@ -348,7 +348,12 @@ public class SignInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mFirebaseAuth.getCurrentUser();
+                            FirebaseUser mFirebaseAuthCurrentUser = mFirebaseAuth.getCurrentUser();
+                            Users user = new Users();
+                            user.setEmail(mFirebaseAuthCurrentUser.getEmail());
+                            user.setUsername(mFirebaseAuthCurrentUser.getDisplayName());
+                            user.setProfile_picture(mFirebaseAuthCurrentUser.getPhotoUrl().toString());
+                            user.setVerified_email(true);
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

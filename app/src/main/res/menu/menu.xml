@@ -2,14 +2,23 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <item
+        android:id="@+id/more"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        app:showAsAction="always"
+        android:title="more option">
+
+        <menu>
             <item
                 android:id="@+id/settings"
                 android:icon="@drawable/ic_baseline_settings_24"
                 android:title="@string/Setting"/>
             <item
                 android:id="@+id/logout"
-                android:icon="@drawable/ic_baseline_exit_to_app_24"
+                android:icon="@drawable/exit"
                 android:title="@string/Logout"/>
-        
+
+        </menu>
+    </item>
 
 </menu>

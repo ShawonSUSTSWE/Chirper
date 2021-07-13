@@ -78,8 +78,8 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="100dp"
             android:layout_marginBottom="15dp"
-            android:text="Sign In"
-            app:cornerRadius="100dp"/>
+            android:text="@string/signin"
+            app:cornerRadius="30dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -115,35 +115,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/googlesignin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="bottom|end"
-                android:backgroundTint="@color/white"
-                app:fabSize="normal"
-                app:srcCompat="@drawable/google_logo"
-                app:tint = "@null"
-                />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fbsignin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="bottom|end"
-                android:backgroundTint="@color/fb_color"
-                app:fabSize="normal"
-                app:srcCompat="@drawable/fb"
-                app:tint = "@null"
-                />
-            <com.facebook.login.widget.DeviceLoginButton
-                android:id = "@+id/fbactuallogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/emailsignin"
