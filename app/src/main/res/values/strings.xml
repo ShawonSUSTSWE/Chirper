@@ -16,4 +16,7 @@
     <string name="Mobhint">Enter Mobile No.</string>
     <string name="Our_logo">A chirping bird</string>
     <string name="Splashscreen_msg">Welcome to Chirper!</string>
+    <string name="facebook_app_id">1006955956745917</string>
+    <string name="fb_login_protocol_scheme">fb1006955956745917</string>
+
 </resources>

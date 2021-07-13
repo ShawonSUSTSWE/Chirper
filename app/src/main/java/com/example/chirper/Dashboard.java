@@ -2,6 +2,7 @@ package com.example.chirper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,23 +38,7 @@ public class Dashboard extends AppCompatActivity
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
         //Lets try to commit this change
-        if(!mFirebaseUser.isEmailVerified()) {
 
-            mActivityDashboardBinding.notverified.setVisibility(View.VISIBLE);
-
-        }
-
-        mActivityDashboardBinding.notverified.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mFirebaseAuth.signOut();
-                Intent intent = new Intent(Dashboard.this, SignInActivity.class);
-                startActivity(intent);
-                finish();
-
-            }
-        });
 
 
     }

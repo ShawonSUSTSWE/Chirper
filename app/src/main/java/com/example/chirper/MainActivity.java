@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().hide();
+
         t1=(EditText)findViewById(R.id.t1);
         ccp=(CountryCodePicker)findViewById(R.id.ccp);
         ccp.registerCarrierNumberEditText(t1);
