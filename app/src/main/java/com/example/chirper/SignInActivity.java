@@ -56,7 +56,6 @@ public class SignInActivity extends AppCompatActivity {
     FirebaseUser mFirebaseUser;
     private FirebaseAuth mFirebaseAuth;
     FirebaseDatabase mFirebaseDatabase;
-    boolean verified = false;
     ProgressDialog mProgressDialog, mGoogleProgressDialog;
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager mCallbackManager;
@@ -98,6 +97,12 @@ public class SignInActivity extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
+
+        //Getting Data from Signup Activity
+        String name = getIntent().getStringExtra("Verified_Username");
+        String E_mail = getIntent().getStringExtra("Verified_Email");
+        String PASS = getIntent().getStringExtra("PASS");
+
 
         LoginButton mloginButton = mActivitySignInBinding.fbactuallogin;
         mloginButton.setPermissions("email", "public_profile", "user_friends");
@@ -169,9 +174,9 @@ public class SignInActivity extends AppCompatActivity {
                                 mFirebaseUser = mFirebaseAuth.getCurrentUser();
                                 if (mFirebaseUser.isEmailVerified()) {
 
-                                    verified = true;
                                     String id = mFirebaseUser.getUid();
-                                    mFirebaseDatabase.getReference().child("Users").child(id).child("verified_email").setValue(verified);
+                                    Users user = new Users(name,E_mail,PASS);
+                                    mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
                                     Intent intent = new Intent(SignInActivity.this, Dashboard.class);
                                     startActivity(intent);
                                     finish();
@@ -320,7 +325,6 @@ public class SignInActivity extends AppCompatActivity {
                             user.setEmail(mUser.getEmail());
                             user.setUsername(mUser.getDisplayName());
                             user.setProfile_picture(mUser.getPhotoUrl().toString());
-                            user.setVerified_email(true);
 
                             mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).setValue(user);
 
@@ -353,7 +357,6 @@ public class SignInActivity extends AppCompatActivity {
                             user.setEmail(mFirebaseAuthCurrentUser.getEmail());
                             user.setUsername(mFirebaseAuthCurrentUser.getDisplayName());
                             user.setProfile_picture(mFirebaseAuthCurrentUser.getPhotoUrl().toString());
-                            user.setVerified_email(true);
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

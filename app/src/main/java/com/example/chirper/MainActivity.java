@@ -8,33 +8,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.chirper.databinding.ActivityMainBinding;
 import com.hbb20.CountryCodePicker;
 
-public class MainActivity extends AppCompatActivity
-{
-    CountryCodePicker ccp;
-    EditText t1;
-    Button b1;
+public class MainActivity extends AppCompatActivity {
+
+    private ActivityMainBinding mActivityMainBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        mActivityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mActivityMainBinding.getRoot());
         getSupportActionBar().hide();
 
-        t1=(EditText)findViewById(R.id.t1);
-        ccp=(CountryCodePicker)findViewById(R.id.ccp);
-        ccp.registerCarrierNumberEditText(t1);
-        b1=(Button)findViewById(R.id.b1);
 
-        b1.setOnClickListener(new View.OnClickListener() {
+
+        mActivityMainBinding.userphonesignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this, Manageotp.class);
-                intent.putExtra("mobile",ccp.getFullNumberWithPlus().replace(" ",""));
+                intent.putExtra("mobile", mActivityMainBinding.ccp.getFullNumberWithPlus().replace(" ",""));
+                intent.putExtra("NAME", mActivityMainBinding.username.getText().toString());
+                intent.putExtra("PASS", mActivityMainBinding.passwordPhone.getText().toString());
                 startActivity(intent);
+                finish();
             }
         });
     }
