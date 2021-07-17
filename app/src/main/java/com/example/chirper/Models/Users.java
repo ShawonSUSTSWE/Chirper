@@ -87,7 +87,7 @@ public class Users {
         this.lastmsg = lastmsg;
     }
 
-    public String getUserId() {
+    public String getUserId(String key) {
 
         return userId;
     }

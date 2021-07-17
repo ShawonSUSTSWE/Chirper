@@ -347,6 +347,7 @@ public class SignInActivity extends AppCompatActivity {
                             user.setEmail(mUser.getEmail());
                             user.setUsername(mUser.getDisplayName());
                             user.setProfile_picture(mUser.getPhotoUrl().toString());
+                            user.setUserId(mUser.getUid());
 
                             mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).setValue(user);
 
@@ -379,6 +380,8 @@ public class SignInActivity extends AppCompatActivity {
                             user.setEmail(mFirebaseAuthCurrentUser.getEmail());
                             user.setUsername(mFirebaseAuthCurrentUser.getDisplayName());
                             user.setProfile_picture(mFirebaseAuthCurrentUser.getPhotoUrl().toString());
+                            user.setUserId(mFirebaseAuthCurrentUser.getUid());
+                            mFirebaseDatabase.getReference().child("Users").child(mFirebaseAuthCurrentUser.getUid()).setValue(user);
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
