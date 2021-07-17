@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/chirper_logo"
@@ -49,8 +49,7 @@
                 android:layout_height="wrap_content"
                 app:ccp_autoDetectCountry="true"
                 app:ccp_showNameCode="true"
-                android:background="@color/white"
-                />
+                android:background="@color/white" />
 
             <EditText
                 android:id="@+id/mobile"
@@ -65,19 +64,6 @@
                 android:paddingBottom="15dp"/>
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/passwordPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:backgroundTint="@android:color/white"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="15dp"
-            android:hint="Password"
-            android:inputType="textPassword"/>
 
         <TextView
             android:id="@+id/signinswitcherPhone"
@@ -97,18 +83,6 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="100dp"
             android:text="Sign Up"
-            app:cornerRadius = "100dp"/>
-
-        <Button
-            android:id="@+id/proceed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="15dp"
-            android:text="Proceed"
-            android:visibility="gone"
             app:cornerRadius = "100dp"/>
 
 

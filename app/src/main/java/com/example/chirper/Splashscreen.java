@@ -29,6 +29,7 @@ public class Splashscreen extends AppCompatActivity {
                 }
                 finally {
                     Intent intent = new Intent(Splashscreen.this, SignInActivity.class);
+                    intent.putExtra("Previous intent","Splashscreen");
                     startActivity(intent);
                     finish();
                 }

@@ -10,7 +10,7 @@
     tools:context=".SignUpActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal">
@@ -76,7 +76,7 @@
 
         <Button
             android:id="@+id/signup"
-            android:layout_width="match_parent"
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="15dp"
@@ -84,68 +84,53 @@
             android:layout_marginRight="100dp"
             android:text="Sign Up"
             app:cornerRadius = "100dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <View
+                android:layout_width="150dp"
+                android:layout_height="2dp"
+                android:layout_gravity="left|center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/grayBackground"/>
 
-        <Button
-            android:id="@+id/proceed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="15dp"
-            android:text="Proceed"
-            android:visibility="gone"
-            app:cornerRadius = "100dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="or"
+                android:textColor="@color/grayBackground"
+                android:textStyle="bold"/>
 
+            <View
+                android:layout_width="150dp"
+                android:layout_height="2dp"
+                android:layout_gravity="right|center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/grayBackground"/>
 
-
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/google1"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@android:color/white"
-                android:drawableLeft="@drawable/google_logo"
-                android:fontFamily="sans-serif-medium"
-                android:paddingTop="4dp"
-                android:text="Google"
-                android:textColor="@color/black"
-                app:cornerRadius = "100dp" />
 
-            <Button
-                android:id="@+id/fb1"
-                android:layout_width="150dp"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/signupphone"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/fb_color"
-                android:drawableLeft="@drawable/fb"
-                android:paddingTop="4dp"
-                android:text="Facebook"
-                app:cornerRadius = "100dp" />
+                android:layout_margin="16dp"
+                android:layout_gravity="bottom|end"
+                android:backgroundTint="@color/white"
+                app:fabSize="normal"
+                app:srcCompat="@drawable/ic_baseline_smartphone_24"
+                app:tint = "@null" />
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/signupphone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:backgroundTint="#FFFFFF"
-            android:text="Sign Up with Phone"
-            android:textColor="@color/black" />
 
     </LinearLayout>
 

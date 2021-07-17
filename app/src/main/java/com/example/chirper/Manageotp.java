@@ -37,12 +37,13 @@ public class Manageotp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mActivityManageotpBinding = ActivityManageotpBinding.inflate(getLayoutInflater());
         setContentView(mActivityManageotpBinding.getRoot());
+        getSupportActionBar().hide();
 
         mAuth=FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
         //Getting number from signup
-        phonenumber = getIntent().getStringExtra("mobile");
+        phonenumber = getIntent().getStringExtra("mobile").toString();
         name = getIntent().getStringExtra("NAME");
         pass = getIntent().getStringExtra("PASS");
 
@@ -105,8 +106,11 @@ public class Manageotp extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             String id = mAuth.getCurrentUser().getUid();
-                            Users user = new Users(name,phonenumber,pass,1);
-                            mFirebaseDatabase.getReference().child("Mobile Users").child(id).setValue(user);
+                            Users user = new Users(name,phonenumber,pass,id,1);
+                            mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
+                            mFirebaseDatabase.getReference().child("Users").child(id).child("Phone Number").setValue(phonenumber);
+                            mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).setValue(user);
+                            mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).child("Phone Number").setValue(phonenumber);
                             startActivity(new Intent(Manageotp.this,Dashboard.class));
                             finish();
 

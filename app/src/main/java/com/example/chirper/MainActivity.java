@@ -24,17 +24,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(mActivityMainBinding.getRoot());
         getSupportActionBar().hide();
 
-
+        mActivityMainBinding.ccp.registerCarrierNumberEditText(mActivityMainBinding.mobile);
 
         mActivityMainBinding.userphonesignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent=new Intent(MainActivity.this, Manageotp.class);
                 intent.putExtra("mobile", mActivityMainBinding.ccp.getFullNumberWithPlus().replace(" ",""));
                 intent.putExtra("NAME", mActivityMainBinding.username.getText().toString());
-                intent.putExtra("PASS", mActivityMainBinding.passwordPhone.getText().toString());
                 startActivity(intent);
                 finish();
+
             }
         });
     }

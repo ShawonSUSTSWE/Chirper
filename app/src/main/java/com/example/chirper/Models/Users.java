@@ -30,19 +30,21 @@ public class Users {
     public  Users() {}
 
     // This is used for signup with email
-    public Users(String username, String email, String password ) {
+    public Users(String username, String email, String password, String userId ) {
 
         this.username = username;
         this.email = email;
         this.password = password;
+        this.userId = userId;
 
     }
 
     //Signup with mobile
-    public Users ( String username, String phoneNo, String password, int number ) {
+    public Users ( String username, String phoneNo, String password, String userId, int number ) {
         this.username = username;
         this.phoneNo = phoneNo;
         this.password = password;
+        this.userId = userId;
     }
 
 

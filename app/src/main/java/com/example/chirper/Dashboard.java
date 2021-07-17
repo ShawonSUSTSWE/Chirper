@@ -12,7 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import com.example.chirper.Adapters.FragmentsAdapter;
 import com.example.chirper.databinding.ActivityDashboardBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -36,6 +38,29 @@ public class Dashboard extends AppCompatActivity
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        mActivityDashboardBinding.viewpager.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));
+        mActivityDashboardBinding.tablayout.setupWithViewPager(mActivityDashboardBinding.viewpager);
+
+        /*
+        <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/dashboard_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:titleTextColor="@color/white"
+            app:title="Chirper"/>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+         */
+
 
         //Lets try to commit this change
 
@@ -66,6 +91,7 @@ public class Dashboard extends AppCompatActivity
 
                 mFirebaseAuth.signOut();
                 Intent intent_log = new Intent(Dashboard.this, SignInActivity.class);
+                intent_log.putExtra("Previous intent", "Dashboard");
                 startActivity(intent_log);
                 finish();
                 break;
