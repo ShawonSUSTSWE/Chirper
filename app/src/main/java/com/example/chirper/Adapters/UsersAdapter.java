@@ -1,6 +1,7 @@
 package com.example.chirper.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chirper.Dashboard;
 import com.example.chirper.Models.Users;
+import com.example.chirper.ProfileActivity;
 import com.example.chirper.R;
 import com.squareup.picasso.Picasso;
 
@@ -45,6 +48,18 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
         Users user = list.get(position);
         Picasso.get().load(user.getProfile_picture()).placeholder(R.drawable.user).into(holder.mImageView);
         holder.userName.setText(user.getUsername());
+        holder.mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent profileintent = new Intent(mContext, ProfileActivity.class);
+                profileintent.putExtra("UserID", user.getUserId());
+                profileintent.putExtra("Username", user.getUsername());
+                profileintent.putExtra("Userpic",user.getProfile_picture());
+                mContext.startActivity(profileintent);
+
+            }
+        });
 
     }
 

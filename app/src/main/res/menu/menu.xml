@@ -14,6 +14,9 @@
         android:title="more option">
 
         <menu>
+            <item android:id="@+id/user_profile"
+                android:icon="@drawable/profilepic"
+                android:title="My Profile"/>
             <item
                 android:id="@+id/settings"
                 android:icon="@drawable/ic_baseline_settings_24"

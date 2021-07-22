@@ -42,6 +42,8 @@ public class Dashboard extends AppCompatActivity
         mActivityDashboardBinding.viewpager.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));
         mActivityDashboardBinding.tablayout.setupWithViewPager(mActivityDashboardBinding.viewpager);
 
+
+
         /*
         <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -81,6 +83,12 @@ public class Dashboard extends AppCompatActivity
     public boolean onOptionsItemSelected (@NonNull MenuItem item ) {
 
         switch (item.getItemId()) {
+
+            case R.id.user_profile:
+
+                Intent profileintent = new Intent(Dashboard.this, ProfileActivity.class);
+                startActivity(profileintent);
+                break;
 
             case R.id.settings:
 

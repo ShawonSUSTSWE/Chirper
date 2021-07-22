@@ -87,7 +87,7 @@ public class Users {
         this.lastmsg = lastmsg;
     }
 
-    public String getUserId(String key) {
+    public String getUserId() {
 
         return userId;
     }
@@ -96,7 +96,7 @@ public class Users {
 
         this.userId = userId;
     }
-    public String getPhoneNo (String phoneNo) {
+    public String getPhoneNo () {
 
         return phoneNo;
     }
@@ -115,5 +115,9 @@ public class Users {
 
         this.password = password;
 
+    }
+
+    public String getUserId(String userId) {
+        return userId;
     }
 }
