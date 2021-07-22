@@ -11,10 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chirper.ChatActivity;
 import com.example.chirper.Dashboard;
 import com.example.chirper.Models.Users;
 import com.example.chirper.ProfileActivity;
 import com.example.chirper.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +30,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
 
     ArrayList<Users> list;
     Context mContext;
+
 
     public UsersAdapter(ArrayList<Users> list, Context context) {
         this.list = list;
@@ -57,6 +61,19 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
                 profileintent.putExtra("Username", user.getUsername());
                 profileintent.putExtra("Userpic",user.getProfile_picture());
                 mContext.startActivity(profileintent);
+
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent chatintent = new Intent(mContext, ChatActivity.class);
+                chatintent.putExtra("UserID", user.getUserId());
+                chatintent.putExtra("Username", user.getUsername());
+                chatintent.putExtra("Userpic",user.getProfile_picture());
+                mContext.startActivity(chatintent);
 
             }
         });

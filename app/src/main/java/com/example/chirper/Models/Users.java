@@ -116,8 +116,4 @@ public class Users {
         this.password = password;
 
     }
-
-    public String getUserId(String userId) {
-        return userId;
-    }
 }

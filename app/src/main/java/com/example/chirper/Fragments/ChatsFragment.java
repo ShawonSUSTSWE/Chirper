@@ -15,6 +15,8 @@ import com.example.chirper.Adapters.UsersAdapter;
 import com.example.chirper.Models.Users;
 import com.example.chirper.R;
 import com.example.chirper.databinding.FragmentChatsBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,6 +36,8 @@ public class ChatsFragment extends Fragment {
     FragmentChatsBinding mFragmentChatsBinding;
     ArrayList<Users> list = new ArrayList<>();
     FirebaseDatabase mFirebaseDatabase;
+    FirebaseAuth mFirebaseAuth;
+    FirebaseUser mFirebaseUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,9 +48,13 @@ public class ChatsFragment extends Fragment {
         UsersAdapter adapter = new UsersAdapter(list,getContext());
         mFragmentChatsBinding.chatRecyclerview.setAdapter(adapter);
 
+
+
         LinearLayoutManager mlinearLayoutManager = new LinearLayoutManager(getContext());
         mFragmentChatsBinding.chatRecyclerview.setLayoutManager(mlinearLayoutManager);
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
         mFirebaseDatabase.getReference().child("Users").addValueEventListener(new ValueEventListener() {
             @Override
@@ -56,8 +64,9 @@ public class ChatsFragment extends Fragment {
                 for ( DataSnapshot dataSnapshot: snapshot.getChildren() ) {
 
                     Users user = dataSnapshot.getValue(Users.class);
-                    user.getUserId(dataSnapshot.getKey());
-                    list.add(user);
+                    user.setUserId(dataSnapshot.getKey());
+                    if(!mFirebaseUser.getUid().equals(user.getUserId()))
+                        list.add(user);
 
                 }
                 adapter.notifyDataSetChanged();
