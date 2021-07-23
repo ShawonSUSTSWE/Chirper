@@ -25,7 +25,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:src="@drawable/user"
+        android:src="@drawable/user_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/cover_page"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,17 +43,29 @@
         app:layout_constraintStart_toStartOf="@+id/circleImageView"
         app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
 
+    <TextView
+        android:id="@+id/displayuserBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Hi I am using Chirper!"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/displayusername"
+        app:layout_constraintStart_toStartOf="@+id/displayusername"
+        app:layout_constraintTop_toBottomOf="@+id/displayusername" />
+
     <Button
         android:id="@+id/sendfriendrequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:drawableLeft="@drawable/add_friend"
         android:text="Send Friend Request"
-        app:layout_constraintEnd_toEndOf="@+id/displayusername"
-        app:layout_constraintStart_toStartOf="@+id/displayusername"
-        app:layout_constraintTop_toBottomOf="@+id/displayusername" />
+        app:layout_constraintEnd_toEndOf="@+id/displayuserBio"
+        app:layout_constraintStart_toStartOf="@+id/displayuserBio"
+        app:layout_constraintTop_toBottomOf="@+id/displayuserBio" />
 
     <Button
         android:layout_width="wrap_content"
@@ -63,10 +75,11 @@
         android:backgroundTint="@color/red"
         android:drawableLeft="@drawable/ic_baseline_cancel_24"
         android:text="Cancel Friend Request"
-        app:layout_constraintEnd_toEndOf="@+id/sendfriendrequest"
-        app:layout_constraintStart_toStartOf="@+id/sendfriendrequest"
-        app:layout_constraintTop_toBottomOf="@+id/sendfriendrequest"
-        android:layout_marginTop="10dp"/>
+        app:layout_constraintEnd_toEndOf="@+id/displayuserBio"
+        app:layout_constraintStart_toStartOf="@+id/displayuserBio"
+        app:layout_constraintTop_toBottomOf="@+id/displayuserBio"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,7 +89,8 @@
         app:layout_constraintEnd_toEndOf="@+id/cancelrequest"
         app:layout_constraintStart_toStartOf="@+id/cancelrequest"
         app:layout_constraintTop_toBottomOf="@+id/cancelrequest"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

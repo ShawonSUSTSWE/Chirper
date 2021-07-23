@@ -2,9 +2,9 @@ package com.example.chirper.Models;
 
 public class Users {
 
-    String profile_picture, username, email, lastmsg, userId, phoneNo, password;
+    String profile_picture, username, email, lastmsg, userId, phoneNo, password, Bio;
 
-    public Users(String profile_picture, String username, String email, String password, String lastmsg, String userId) {
+    public Users(String profile_picture, String username, String email, String lastmsg, String userId, String Bio) {
 
         this.profile_picture = profile_picture;
         this.username = username;
@@ -12,9 +12,10 @@ public class Users {
         this.password = password;
         this.lastmsg = lastmsg;
         this.userId = userId;
+        this.Bio = Bio;
 
     }
-    public Users(String profile_picture, String username, String phoneNo, String password, String lastmsg, String userId, int num) {
+    public Users(String profile_picture, String username, String phoneNo, String lastmsg, String userId, String Bio, int num) {
 
         this.profile_picture = profile_picture;
         this.username = username;
@@ -22,7 +23,7 @@ public class Users {
         this.password = password;
         this.lastmsg = lastmsg;
         this.userId = userId;
-
+        this.Bio = Bio;
     }
 
 
@@ -30,7 +31,7 @@ public class Users {
     public  Users() {}
 
     // This is used for signup with email
-    public Users(String username, String email, String password, String userId ) {
+    public Users(String username, String email, String userId ) {
 
         this.username = username;
         this.email = email;
@@ -40,13 +41,20 @@ public class Users {
     }
 
     //Signup with mobile
-    public Users ( String username, String phoneNo, String password, String userId, int number ) {
+    public Users ( String username, String phoneNo, String userId, int number ) {
         this.username = username;
         this.phoneNo = phoneNo;
         this.password = password;
         this.userId = userId;
     }
 
+    public String getBio() {
+        return Bio;
+    }
+
+    public void setBio(String bio) {
+        Bio = bio;
+    }
 
     public String getProfile_picture() {
 

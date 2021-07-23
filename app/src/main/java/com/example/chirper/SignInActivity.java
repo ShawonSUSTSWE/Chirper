@@ -196,7 +196,7 @@ public class SignInActivity extends AppCompatActivity {
 
                                     String id = mFirebaseUser.getUid();
                                     if(prev.equals("Sign Up")) {
-                                        Users user = new Users(name, E_mail, PASS, id);
+                                        Users user = new Users(name, E_mail, id);
                                         mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
                                     }
                                     Intent intent = new Intent(SignInActivity.this, Dashboard.class);

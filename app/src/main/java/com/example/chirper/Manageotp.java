@@ -106,9 +106,9 @@ public class Manageotp extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             String id = mAuth.getCurrentUser().getUid();
-                            Users user = new Users(name,phonenumber,pass,id,1);
+                            Users user = new Users(name,phonenumber,id,1);
                             mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
-                            mFirebaseDatabase.getReference().child("Users").child(id).child("Phone Number").setValue(phonenumber);
+                            mFirebaseDatabase.getReference().child("Users").child(id).child("phoneNo").setValue(phonenumber);
                             mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).setValue(user);
                             mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).child("Phone Number").setValue(phonenumber);
                             startActivity(new Intent(Manageotp.this,Dashboard.class));
