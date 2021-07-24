@@ -194,8 +194,8 @@ public class SignInActivity extends AppCompatActivity {
                                 mFirebaseUser = mFirebaseAuth.getCurrentUser();
                                 if (mFirebaseUser.isEmailVerified()) {
 
-                                    String id = mFirebaseUser.getUid();
                                     if(prev.equals("Sign Up")) {
+                                        String id = mFirebaseUser.getUid();
                                         Users user = new Users(name, E_mail, id);
                                         mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
                                     }
