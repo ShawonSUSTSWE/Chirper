@@ -3,6 +3,7 @@ package com.example.chirper.Fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -25,6 +26,10 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 
 public class ChatsFragment extends Fragment {
@@ -35,6 +40,7 @@ public class ChatsFragment extends Fragment {
 
     FragmentChatsBinding mFragmentChatsBinding;
     ArrayList<Users> list = new ArrayList<>();
+    HashMap<String, Users> Friendlist = new HashMap<>();
     FirebaseDatabase mFirebaseDatabase;
     FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
@@ -60,16 +66,41 @@ public class ChatsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
-                list.clear();
                 for ( DataSnapshot dataSnapshot: snapshot.getChildren() ) {
 
                     Users user = dataSnapshot.getValue(Users.class);
                     user.setUserId(dataSnapshot.getKey());
-                    if(!mFirebaseUser.getUid().equals(user.getUserId()))
-                        list.add(user);
+                    if(!mFirebaseUser.getUid().equals(user.getUserId())) {
+
+                        Friendlist.put(dataSnapshot.getKey(), user);
+
+                    }
 
                 }
-                adapter.notifyDataSetChanged();
+                mFirebaseDatabase.getReference().child("Friends/"+mFirebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                        list.clear();
+                        for ( DataSnapshot dataSnapshot: snapshot.getChildren() ) {
+
+                            if(Friendlist.containsKey(dataSnapshot.getKey())) {
+
+                                list.add(Friendlist.get(dataSnapshot.getKey()));
+
+                            }
+
+                        }
+
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
+
 
             }
 
@@ -78,6 +109,8 @@ public class ChatsFragment extends Fragment {
 
             }
         });
+
+
 
         return mFragmentChatsBinding.getRoot();
     }

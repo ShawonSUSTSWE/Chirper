@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.chirper.Fragments.CallsFragment;
+import com.example.chirper.Fragments.RequestsFragment;
 import com.example.chirper.Fragments.ChatsFragment;
 import com.example.chirper.Fragments.FriendsFragment;
 import com.example.chirper.Fragments.PeopleFragment;
@@ -33,7 +33,7 @@ public class FragmentsAdapter extends FragmentPagerAdapter {
             case 2:
                 return new PeopleFragment();
             case 3:
-                return new CallsFragment();
+                return new RequestsFragment();
             default:
                 return new ChatsFragment();
         }
@@ -61,7 +61,7 @@ public class FragmentsAdapter extends FragmentPagerAdapter {
             title = "PEOPLE";
         }
         if (position == 3) {
-            title = "CALLS";
+            title = "REQUEST";
         }
 
 
