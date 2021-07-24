@@ -2,7 +2,6 @@ package com.example.chirper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,18 +18,11 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -40,14 +32,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import org.jetbrains.annotations.NotNull;
 import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.concurrent.TimeUnit;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -55,23 +46,48 @@ public class SignInActivity extends AppCompatActivity {
     ActivitySignInBinding mActivitySignInBinding;
     FirebaseUser mFirebaseUser;
     private FirebaseAuth mFirebaseAuth;
-    FirebaseDatabase mFirebaseDatabase;
-    boolean verified = false;
+    FirebaseDatabase mFirebaseDatabase, mDatabase;
     ProgressDialog mProgressDialog, mGoogleProgressDialog;
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager mCallbackManager;
     private final int RC_SIGN_IN = 123;
+    boolean sign = false;
 
     @Override
     public void onStart() {
 
         super.onStart();
+        String Userid = null;
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if(mFirebaseUser!=null && mFirebaseUser.isEmailVerified()) {
+        DatabaseReference reference = mFirebaseDatabase.getReference("Users");
+        if(mFirebaseUser!=null) {
 
-            Intent intent_first = new Intent(SignInActivity.this, Dashboard.class);
-            startActivity(intent_first);
-            finish();
+
+            if(mFirebaseUser.isEmailVerified()) {
+                sign = true;
+                Intent intent_first = new Intent(SignInActivity.this, Dashboard.class);
+                startActivity(intent_first);
+                finish();
+            }
+            Userid = mFirebaseUser.getUid();
+            Query checkuser = reference.orderByChild("userId").equalTo(Userid);
+            checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                    if(snapshot.exists() && !sign) {
+                        Intent intent_first = new Intent(SignInActivity.this, Dashboard.class);
+                        startActivity(intent_first);
+                        finish();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                }
+            });
 
         }
 
@@ -98,6 +114,15 @@ public class SignInActivity extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
+
+        //Getting Data from Signup Activity
+        String name = getIntent().getStringExtra("Verified_Username");
+        String E_mail = getIntent().getStringExtra("Verified_Email");
+        String PASS = getIntent().getStringExtra("PASS");
+        String prev = getIntent().getStringExtra("Previous intent");
+
+        Log.d(TAG,prev);
+
 
         LoginButton mloginButton = mActivitySignInBinding.fbactuallogin;
         mloginButton.setPermissions("email", "public_profile", "user_friends");
@@ -169,9 +194,11 @@ public class SignInActivity extends AppCompatActivity {
                                 mFirebaseUser = mFirebaseAuth.getCurrentUser();
                                 if (mFirebaseUser.isEmailVerified()) {
 
-                                    verified = true;
-                                    String id = mFirebaseUser.getUid();
-                                    mFirebaseDatabase.getReference().child("Users").child(id).child("verified_email").setValue(verified);
+                                    if(prev.equals("Sign Up")) {
+                                        String id = mFirebaseUser.getUid();
+                                        Users user = new Users(name, E_mail, id);
+                                        mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
+                                    }
                                     Intent intent = new Intent(SignInActivity.this, Dashboard.class);
                                     startActivity(intent);
                                     finish();
@@ -185,7 +212,7 @@ public class SignInActivity extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(SignInActivity.this, "Authentication failed.",
+                                Toast.makeText(SignInActivity.this, "Authentication failed",
                                         Toast.LENGTH_SHORT).show();
                             }
 
@@ -320,7 +347,7 @@ public class SignInActivity extends AppCompatActivity {
                             user.setEmail(mUser.getEmail());
                             user.setUsername(mUser.getDisplayName());
                             user.setProfile_picture(mUser.getPhotoUrl().toString());
-                            user.setVerified_email(true);
+                            user.setUserId(mUser.getUid());
 
                             mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).setValue(user);
 
@@ -353,7 +380,8 @@ public class SignInActivity extends AppCompatActivity {
                             user.setEmail(mFirebaseAuthCurrentUser.getEmail());
                             user.setUsername(mFirebaseAuthCurrentUser.getDisplayName());
                             user.setProfile_picture(mFirebaseAuthCurrentUser.getPhotoUrl().toString());
-                            user.setVerified_email(true);
+                            user.setUserId(mFirebaseAuthCurrentUser.getUid());
+                            mFirebaseDatabase.getReference().child("Users").child(mFirebaseAuthCurrentUser.getUid()).setValue(user);
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

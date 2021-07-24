@@ -3,6 +3,10 @@
     package="com.example.chirper">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +15,12 @@
         android:roundIcon="@mipmap/chirper_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chirper">
-        <activity android:name=".PhoneSignIn"></activity>
+        <activity
+            android:name=".ChatActivity"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/Theme.Chirper.NoActionBar"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".PhoneSignIn" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".Splashscreen">

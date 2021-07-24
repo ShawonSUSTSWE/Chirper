@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Manageotp">
+    android:background="@color/back"
+    tools:context=".Manageotp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <EditText
-        android:id="@+id/t2"
-        android:layout_width="271dp"
-        android:layout_height="58dp"
-        android:ems="10"
+        android:id="@+id/OTP"
+        android:layout_marginTop="270dp"
+        android:layout_marginBottom="13dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingEnd="90dp"
+        android:background="@color/white"
         android:inputType="textPersonName"
-        android:hint="Enter OTP here"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.384" />
+        android:hint="Enter OTP here" />
 
     <Button
-        android:id="@+id/b2"
-        android:layout_width="251dp"
-        android:layout_height="50dp"
-        android:text="Verify and Signin"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/veify"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="15dp"
+        android:text="Verify"
+        app:cornerRadius="100dp"/>
+
+</LinearLayout>

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation = "horizontal">
 
+    <item android:title="Search"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction="always"
+        android:id="@+id/search_bar" />
     <item
         android:id="@+id/more"
         android:icon="@drawable/ic_baseline_more_vert_24"
@@ -9,6 +14,9 @@
         android:title="more option">
 
         <menu>
+            <item android:id="@+id/user_profile"
+                android:icon="@drawable/profilepic"
+                android:title="My Profile"/>
             <item
                 android:id="@+id/settings"
                 android:icon="@drawable/ic_baseline_settings_24"

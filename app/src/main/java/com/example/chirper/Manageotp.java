@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.example.chirper.Models.Users;
+import com.example.chirper.databinding.ActivityManageotpBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -18,40 +20,46 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
-public class Manageotp extends AppCompatActivity
-{
-    EditText t2;
-    Button b2;
-    String phonenumber;
-    String otpid;
-    FirebaseAuth mAuth;
+public class Manageotp extends AppCompatActivity {
+
+    private ActivityManageotpBinding mActivityManageotpBinding;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mFirebaseDatabase;
+    String phonenumber, otpid, name, pass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manageotp);
+        mActivityManageotpBinding = ActivityManageotpBinding.inflate(getLayoutInflater());
+        setContentView(mActivityManageotpBinding.getRoot());
+        getSupportActionBar().hide();
 
-        phonenumber=getIntent().getStringExtra("mobile").toString();
-        t2=(EditText)findViewById(R.id.t2);
-        b2=(Button)findViewById(R.id.b2);
         mAuth=FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
+        //Getting number from signup
+        phonenumber = getIntent().getStringExtra("mobile").toString();
+        name = getIntent().getStringExtra("NAME");
+        pass = getIntent().getStringExtra("PASS");
 
         initiateotp();
 
-        b2.setOnClickListener(new View.OnClickListener() {
+        mActivityManageotpBinding.veify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(t2.getText().toString().isEmpty())
+                if(mActivityManageotpBinding.OTP.getText().toString().isEmpty())
                     Toast.makeText(getApplicationContext(),"Blank Field can not be processed",Toast.LENGTH_LONG).show();
-                else if(t2.getText().toString().length()!=6)
+                else if(mActivityManageotpBinding.OTP.getText().toString().length()!=6)
                     Toast.makeText(getApplicationContext(),"Invalid OTP",Toast.LENGTH_LONG).show();
                 else
                 {
-                    PhoneAuthCredential credential=PhoneAuthProvider.getCredential(otpid,t2.getText().toString());
+                    PhoneAuthCredential credential=PhoneAuthProvider.getCredential(otpid,mActivityManageotpBinding.OTP.getText().toString());
                     signInWithPhoneAuthCredential(credential);
                 }
 
@@ -97,6 +105,12 @@ public class Manageotp extends AppCompatActivity
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
+                            String id = mAuth.getCurrentUser().getUid();
+                            Users user = new Users(name,phonenumber,id,1);
+                            mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
+                            mFirebaseDatabase.getReference().child("Users").child(id).child("phoneNo").setValue(phonenumber);
+                            mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).setValue(user);
+                            mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).child("Phone Number").setValue(phonenumber);
                             startActivity(new Intent(Manageotp.this,Dashboard.class));
                             finish();
 

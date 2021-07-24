@@ -4,53 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:gravity="center"
     android:background="@color/back"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:paddingTop="250dp">
+    tools:context=".SignUpActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/chirper_logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/chirpy2" />
+
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:hint="Username"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="50dp"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:layout_margin="5dp">
-    <com.hbb20.CountryCodePicker
-        android:id="@+id/ccp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:ccp_autoDetectCountry="true"
-        app:ccp_showNameCode="true"
-        android:background="@color/white"/>
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp">
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_showNameCode="true"
+                android:background="@color/white" />
 
-    <EditText
-        android:id="@+id/t1"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:hint="Enter Mobile"
-        android:background="@color/white"
-        android:padding="8dp"
-        android:inputType="textPersonName"
-        android:textStyle="bold" />
+            <EditText
+                android:id="@+id/mobile"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter Mobile"
+                android:background="@color/white"
+                android:padding="8dp"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"/>
         </LinearLayout>
 
+
+        <TextView
+            android:id="@+id/signinswitcherPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="end"
+            android:text="Already Have An Account?" />
+
         <Button
-            android:id="@+id/b1"
-            android:layout_width="171dp"
-            android:layout_height="50dp"
-            android:text="Get OTP"
-            app:cornerRadius="30dp"
-            android:layout_margin="5dp"/>
+            android:id="@+id/userphonesignup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="100dp"
+            android:text="Sign Up"
+            app:cornerRadius = "100dp"/>
+
 
     </LinearLayout>
 

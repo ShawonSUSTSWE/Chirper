@@ -8,22 +8,24 @@
     android:background="@color/dashboardbg1"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/welcome_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:text="@string/welcome_to_chirper"
-            android:textColor="#000"
-            android:layout_gravity="center"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        android:layout_height="56dp"
+        android:background="@color/ChirperColor"
+        android:elevation="12dp"
+        app:tabIndicatorColor="@color/white"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/white"
+        app:tabMaxWidth="0dp"
+        app:tabGravity="fill"
+        app:tabMode="fixed"/>
 
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -47,8 +47,6 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     ProgressDialog progressDialog;
     FirebaseUser mFirebaseUser;
-    boolean possible = false;
-    final int time = 600;
     ProgressDialog progressDialog2;
 
 
@@ -116,6 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent2 = new Intent(SignUpActivity.this, SignInActivity.class);
+                intent2.putExtra("Previous intent", "Sign Up");
                 startActivity(intent2);
                 finish();
 
@@ -128,7 +127,6 @@ public class SignUpActivity extends AppCompatActivity {
 
                 Intent phone_intent = new Intent(SignUpActivity.this, MainActivity.class);
                 startActivity(phone_intent);
-                finish();
 
             }
         });
@@ -157,11 +155,11 @@ public class SignUpActivity extends AppCompatActivity {
                                 public void onSuccess(Void unused) {
                                     progressDialog2.dismiss();
                                     Toast.makeText(SignUpActivity.this,"Must verify before continuing",Toast.LENGTH_SHORT).show();
-                                    String id = mFirebaseUser.getUid();
-                                    Users user = new Users(mActivitySignUpBinding.username.getText().toString(),
-                                            mActivitySignUpBinding.email.getText().toString());
-                                    mDatabase.getReference().child("Users").child(id).setValue(user);
                                     Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                                    intent.putExtra("Verified_Username", mActivitySignUpBinding.username.getText().toString());
+                                    intent.putExtra("Verified_Email", mActivitySignUpBinding.email.getText().toString());
+                                    intent.putExtra("PASS", mActivitySignUpBinding.password.getText().toString());
+                                    intent.putExtra("Previous intent", "Sign Up");
                                     startActivity(intent);
                                     finish();
 

@@ -2,57 +2,58 @@ package com.example.chirper.Models;
 
 public class Users {
 
-    String profile_picture, username, email, lastmsg, userId, phoneNo;
-    boolean verified_email;
+    String profile_picture, username, email, lastmsg, userId, phoneNo, password, Bio;
 
-    public Users(String profile_picture, String username, String email, String lastmsg, String userId) {
+    public Users(String profile_picture, String username, String email, String lastmsg, String userId, String Bio) {
 
         this.profile_picture = profile_picture;
         this.username = username;
         this.email = email;
+        this.password = password;
         this.lastmsg = lastmsg;
         this.userId = userId;
+        this.Bio = Bio;
 
     }
-    public Users(String profile_picture, String username, String phoneNo, String lastmsg, String userId, int num) {
+    public Users(String profile_picture, String username, String phoneNo, String lastmsg, String userId, String Bio, int num) {
 
         this.profile_picture = profile_picture;
         this.username = username;
         this.phoneNo = phoneNo;
+        this.password = password;
         this.lastmsg = lastmsg;
         this.userId = userId;
-
+        this.Bio = Bio;
     }
 
-    public Users (boolean verified_email) {
-
-        this.verified_email = verified_email;
-
-    }
 
 
     public  Users() {}
 
     // This is used for signup with email
-    public Users(String username, String email ) {
+    public Users(String username, String email, String userId ) {
 
         this.username = username;
         this.email = email;
+        this.password = password;
+        this.userId = userId;
 
     }
 
     //Signup with mobile
-    public Users ( String username, String phoneNo, int number ) {
+    public Users ( String username, String phoneNo, String userId, int number ) {
         this.username = username;
         this.phoneNo = phoneNo;
+        this.password = password;
+        this.userId = userId;
     }
 
-    public boolean isVerified_email() {
-        return verified_email;
+    public String getBio() {
+        return Bio;
     }
 
-    public void setVerified_email(boolean verified_email) {
-        this.verified_email = verified_email;
+    public void setBio(String bio) {
+        Bio = bio;
     }
 
     public String getProfile_picture() {
@@ -103,7 +104,7 @@ public class Users {
 
         this.userId = userId;
     }
-    public String getPhoneNo (String phoneNo) {
+    public String getPhoneNo () {
 
         return phoneNo;
     }
@@ -112,4 +113,15 @@ public class Users {
         this.phoneNo = phoneNo;
     }
 
+    public String getPassword() {
+
+        return password;
+
+    }
+
+    public void setPassword(String password) {
+
+        this.password = password;
+
+    }
 }

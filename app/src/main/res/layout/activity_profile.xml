@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/cover_page"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/profile_background"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="134dp">
+
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImageView"
+        android:layout_marginTop="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/user_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/cover_page"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/displayusername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:text="User Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/circleImageView"
+        app:layout_constraintStart_toStartOf="@+id/circleImageView"
+        app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+
+    <TextView
+        android:id="@+id/displayuserBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Hi I am using Chirper!"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/displayusername"
+        app:layout_constraintStart_toStartOf="@+id/displayusername"
+        app:layout_constraintTop_toBottomOf="@+id/displayusername" />
+
+    <Button
+        android:id="@+id/sendfriendrequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:drawableLeft="@drawable/add_friend"
+        android:text="Send Friend Request"
+        app:layout_constraintEnd_toEndOf="@+id/displayuserBio"
+        app:layout_constraintStart_toStartOf="@+id/displayuserBio"
+        app:layout_constraintTop_toBottomOf="@+id/displayuserBio" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancelrequest"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/red"
+        android:drawableLeft="@drawable/ic_baseline_cancel_24"
+        android:text="Cancel Friend Request"
+        app:layout_constraintEnd_toEndOf="@+id/displayuserBio"
+        app:layout_constraintStart_toStartOf="@+id/displayuserBio"
+        app:layout_constraintTop_toBottomOf="@+id/displayuserBio"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/acceptfriendrequest"
+        android:layout_gravity="center"
+        android:backgroundTint="#90EE90"
+        android:drawableLeft="@drawable/accept_request"
+        android:text="Accept Friend Request"
+        app:layout_constraintEnd_toEndOf="@+id/displayuserBio"
+        app:layout_constraintStart_toStartOf="@+id/displayuserBio"
+        app:layout_constraintTop_toBottomOf="@+id/displayuserBio"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/chatbutton"
+        android:drawableLeft="@drawable/ic_baseline_chat_24"
+        android:text="Chat"
+        app:layout_constraintEnd_toEndOf="@+id/displayuserBio"
+        app:layout_constraintStart_toStartOf="@+id/displayuserBio"
+        app:layout_constraintTop_toBottomOf="@+id/displayuserBio"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/unfrienduser"
+        android:drawableLeft="@drawable/block"
+        android:backgroundTint="@color/red"
+        android:text="Unfriend user"
+        app:layout_constraintEnd_toEndOf="@+id/chatbutton"
+        app:layout_constraintStart_toStartOf="@+id/chatbutton"
+        app:layout_constraintTop_toBottomOf="@+id/chatbutton"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

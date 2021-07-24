@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="75dp"
+        android:layout_gravity="center"
+        android:layout_height="75dp"
+        android:src="@drawable/user_2"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"
+        android:padding="5dp"
+        android:layout_marginLeft="5dp"/>
+    <LinearLayout
+        android:id="@+id/profile_link"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userName"
+            android:text="Username"
+            android:maxWidth="300dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxWidth="300dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="Last message"
+            android:id="@+id/lastmsg"
+            android:textSize="16sp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
