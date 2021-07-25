@@ -31,6 +31,7 @@ public class ChatActivity extends AppCompatActivity {
 
         mActivityChatBinding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(mActivityChatBinding.getRoot());
+        setSupportActionBar(mActivityChatBinding.toolbar2);
 
         //Attribution: By Smashicons
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -51,6 +52,12 @@ public class ChatActivity extends AppCompatActivity {
 
                 finish();
 
+            }
+        });
+        mActivityChatBinding.sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

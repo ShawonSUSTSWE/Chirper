@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,13 +56,13 @@ public class ChatsFragment extends Fragment {
         mFragmentChatsBinding.chatRecyclerview.setAdapter(adapter);
 
 
-
         LinearLayoutManager mlinearLayoutManager = new LinearLayoutManager(getContext());
         mFragmentChatsBinding.chatRecyclerview.setLayoutManager(mlinearLayoutManager);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        mFirebaseDatabase.getReference().keepSynced(true);
         mFirebaseDatabase.getReference().child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {

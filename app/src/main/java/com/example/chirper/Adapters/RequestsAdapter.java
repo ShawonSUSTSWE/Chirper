@@ -50,6 +50,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     public void onBindViewHolder(@NonNull @NotNull RequestsAdapter.ViewHolder holder, int position) {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        mFirebaseDatabase.getReference().keepSynced(true);
         mFirebaseAuth = FirebaseAuth.getInstance();
         Users user = mUsersArrayList.get(position);
         Picasso.get().load(user.getProfile_picture()).placeholder(R.drawable.user_2).into(holder.mImageview);
@@ -75,6 +76,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             @Override
             public void onClick(View v) {
 
+                holder.itemView.setVisibility(View.GONE);
                 final String currentDate = DateFormat.getDateInstance().format(new Date());
                 mFirebaseDatabase.getReference().child("Friends").child(mFirebaseAuth.getCurrentUser().getUid()).child(user.getUserId()).child("Date").setValue(currentDate);
                 mFirebaseDatabase.getReference().child("Friends").child(user.getUserId()).child(mFirebaseAuth.getCurrentUser().getUid()).child("Date").setValue(currentDate);
@@ -83,14 +85,18 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
 
             }
         });
+        holder.itemView.setVisibility(View.VISIBLE);
         holder.declinereqbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                holder.itemView.setVisibility(View.GONE);
                 mFirebaseDatabase.getReference("Friend_req").child(mFirebaseAuth.getCurrentUser().getUid()).child(user.getUserId()).removeValue();
                 mFirebaseDatabase.getReference("Friend_req").child(user.getUserId()).child(mFirebaseAuth.getCurrentUser().getUid()).removeValue();
+
             }
         });
-
+        holder.itemView.setVisibility(View.VISIBLE);
     }
 
     @Override

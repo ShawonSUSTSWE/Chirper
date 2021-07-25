@@ -43,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 public class SignInActivity extends AppCompatActivity {
 
     private final String TAG = "SignInActivity";
+    private final String defaultBio = "Hey There! I am using Chirper";
     ActivitySignInBinding mActivitySignInBinding;
     FirebaseUser mFirebaseUser;
     private FirebaseAuth mFirebaseAuth;
@@ -196,7 +197,8 @@ public class SignInActivity extends AppCompatActivity {
 
                                     if(prev.equals("Sign Up")) {
                                         String id = mFirebaseUser.getUid();
-                                        Users user = new Users(name, E_mail, id);
+                                        Users user = new Users("default",name, E_mail, id,
+                                                "No phone number given", defaultBio, "No address given", true);
                                         mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
                                     }
                                     Intent intent = new Intent(SignInActivity.this, Dashboard.class);
@@ -343,11 +345,8 @@ public class SignInActivity extends AppCompatActivity {
                             FirebaseUser mUser = mFirebaseAuth.getCurrentUser();
                             mGoogleProgressDialog.dismiss();
 
-                            Users user = new Users();
-                            user.setEmail(mUser.getEmail());
-                            user.setUsername(mUser.getDisplayName());
-                            user.setProfile_picture(mUser.getPhotoUrl().toString());
-                            user.setUserId(mUser.getUid());
+                            Users user = new Users(mUser.getPhotoUrl().toString(), mUser.getDisplayName(), mUser.getEmail(), mUser.getUid(),
+                                    "No phone number given", defaultBio, "No address given", true);
 
                             mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).setValue(user);
 
@@ -376,11 +375,11 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser mFirebaseAuthCurrentUser = mFirebaseAuth.getCurrentUser();
-                            Users user = new Users();
-                            user.setEmail(mFirebaseAuthCurrentUser.getEmail());
-                            user.setUsername(mFirebaseAuthCurrentUser.getDisplayName());
-                            user.setProfile_picture(mFirebaseAuthCurrentUser.getPhotoUrl().toString());
-                            user.setUserId(mFirebaseAuthCurrentUser.getUid());
+                            Users user = new Users(mFirebaseAuthCurrentUser.getPhotoUrl().toString(),
+                                    mFirebaseAuthCurrentUser.getDisplayName(),
+                                    mFirebaseAuthCurrentUser.getEmail(),
+                                    mFirebaseAuthCurrentUser.getUid(),
+                                    "No phone number given", defaultBio, "No address given", true);
                             mFirebaseDatabase.getReference().child("Users").child(mFirebaseAuthCurrentUser.getUid()).setValue(user);
                             //updateUI(user);
                         } else {

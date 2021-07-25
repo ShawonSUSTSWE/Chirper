@@ -2,28 +2,20 @@ package com.example.chirper.Models;
 
 public class Users {
 
-    String profile_picture, username, email, lastmsg, userId, phoneNo, password, Bio;
+    String profile_picture, username, email, lastmsg, userId, phoneNo, Bio, address;
+    boolean online_status;
 
-    public Users(String profile_picture, String username, String email, String lastmsg, String userId, String Bio) {
+    public Users(String profile_picture, String username, String email, String userId, String phoneNo, String Bio, String address, boolean online_status) {
 
         this.profile_picture = profile_picture;
         this.username = username;
         this.email = email;
-        this.password = password;
-        this.lastmsg = lastmsg;
         this.userId = userId;
         this.Bio = Bio;
-
-    }
-    public Users(String profile_picture, String username, String phoneNo, String lastmsg, String userId, String Bio, int num) {
-
-        this.profile_picture = profile_picture;
-        this.username = username;
+        this.address = address;
+        this.online_status = online_status;
         this.phoneNo = phoneNo;
-        this.password = password;
-        this.lastmsg = lastmsg;
-        this.userId = userId;
-        this.Bio = Bio;
+
     }
 
 
@@ -35,7 +27,6 @@ public class Users {
 
         this.username = username;
         this.email = email;
-        this.password = password;
         this.userId = userId;
 
     }
@@ -44,15 +35,16 @@ public class Users {
     public Users ( String username, String phoneNo, String userId, int number ) {
         this.username = username;
         this.phoneNo = phoneNo;
-        this.password = password;
         this.userId = userId;
     }
 
     public String getBio() {
+
         return Bio;
     }
 
     public void setBio(String bio) {
+
         Bio = bio;
     }
 
@@ -113,15 +105,19 @@ public class Users {
         this.phoneNo = phoneNo;
     }
 
-    public String getPassword() {
-
-        return password;
-
+    public String getAddress() {
+        return address;
     }
 
-    public void setPassword(String password) {
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-        this.password = password;
+    public boolean isOnline_status() {
+        return online_status;
+    }
 
+    public void setOnline_status(boolean online_status) {
+        this.online_status = online_status;
     }
 }

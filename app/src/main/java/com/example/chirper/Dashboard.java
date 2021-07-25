@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Dashboard extends AppCompatActivity
 {
@@ -29,6 +30,7 @@ public class Dashboard extends AppCompatActivity
     private ActivityDashboardBinding mActivityDashboardBinding;
     FirebaseUser mFirebaseUser;
     GoogleSignInClient mGoogleSignInClient;
+    private FirebaseDatabase mDashboardDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class Dashboard extends AppCompatActivity
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mDashboardDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        mDashboardDatabase.getReference().keepSynced(true);
 
         mActivityDashboardBinding.viewpager.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));
         mActivityDashboardBinding.tablayout.setupWithViewPager(mActivityDashboardBinding.viewpager);

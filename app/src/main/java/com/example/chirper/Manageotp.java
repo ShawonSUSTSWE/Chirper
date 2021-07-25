@@ -30,6 +30,7 @@ public class Manageotp extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
     String phonenumber, otpid, name, pass;
+    private final String defaultBio = "Hey there! I am using Chirper";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -106,11 +107,11 @@ public class Manageotp extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             String id = mAuth.getCurrentUser().getUid();
-                            Users user = new Users(name,phonenumber,id,1);
+                            Users user = new Users("default",name,"No email given",phonenumber,id,defaultBio,"No address given",true);
                             mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
                             mFirebaseDatabase.getReference().child("Users").child(id).child("phoneNo").setValue(phonenumber);
                             mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).setValue(user);
-                            mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).child("Phone Number").setValue(phonenumber);
+                            mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).child("phoneNo").setValue(phonenumber);
                             startActivity(new Intent(Manageotp.this,Dashboard.class));
                             finish();
 

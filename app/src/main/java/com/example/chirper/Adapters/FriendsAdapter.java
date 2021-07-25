@@ -66,7 +66,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
                 profileintent.putExtra("UserID", user.getUserId());
                 profileintent.putExtra("Username", user.getUsername());
                 profileintent.putExtra("Userpic",user.getProfile_picture());
-                mContext.startActivity(profileintent);
 
             }
         });
