@@ -55,6 +55,18 @@
         app:layout_constraintEnd_toEndOf="@+id/displayusername"
         app:layout_constraintStart_toStartOf="@+id/displayusername"
         app:layout_constraintTop_toBottomOf="@+id/displayusername" />
+    <TextView
+        android:id="@+id/displayuserfriendtimeperiod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Friends"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/displayuserBio"
+        app:layout_constraintStart_toStartOf="@+id/displayuserBio"
+        app:layout_constraintTop_toBottomOf="@+id/displayuserBio"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/sendfriendrequest"
@@ -94,6 +106,19 @@
         app:layout_constraintTop_toBottomOf="@+id/displayuserBio"
         android:layout_marginTop="30dp"
         android:visibility="gone"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/declinerequest"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/red"
+        android:drawableLeft="@drawable/ic_baseline_cancel_24"
+        android:text="Decline Friend Request"
+        app:layout_constraintEnd_toEndOf="@+id/acceptfriendrequest"
+        app:layout_constraintStart_toStartOf="@+id/acceptfriendrequest"
+        app:layout_constraintTop_toBottomOf="@+id/acceptfriendrequest"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"/>
 
 
     <Button
@@ -103,10 +128,10 @@
         android:id="@+id/chatbutton"
         android:drawableLeft="@drawable/ic_baseline_chat_24"
         android:text="Chat"
-        app:layout_constraintEnd_toEndOf="@+id/displayuserBio"
-        app:layout_constraintStart_toStartOf="@+id/displayuserBio"
-        app:layout_constraintTop_toBottomOf="@+id/displayuserBio"
-        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/displayuserfriendtimeperiod"
+        app:layout_constraintStart_toStartOf="@+id/displayuserfriendtimeperiod"
+        app:layout_constraintTop_toBottomOf="@+id/displayuserfriendtimeperiod"
+        android:layout_marginTop="20dp"
         android:visibility="gone"/>
     <Button
         android:layout_width="wrap_content"

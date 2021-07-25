@@ -57,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
+                /*
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
 
                     if(dataSnapshot.getKey().equals(getuserIDfromintent) && dataSnapshot.child("Status").getValue().toString().equals("sent")) {
@@ -69,6 +70,26 @@ public class ProfileActivity extends AppCompatActivity {
                         mActivityProfileBinding.sendfriendrequest.setVisibility(View.GONE);
                         mActivityProfileBinding.cancelrequest.setVisibility(View.GONE);
                         mActivityProfileBinding.acceptfriendrequest.setVisibility(View.VISIBLE);
+                        mActivityProfileBinding.declinerequest.setVisibility(View.VISIBLE);
+
+                    }
+
+                }
+                 */
+
+                if (snapshot.hasChild(getuserIDfromintent)) {
+
+                    if(snapshot.child(getuserIDfromintent).child("Status").getValue().toString().equals("sent")) {
+
+                        mActivityProfileBinding.sendfriendrequest.setVisibility(View.GONE);
+                        mActivityProfileBinding.cancelrequest.setVisibility(View.VISIBLE);
+
+                    } else if ( snapshot.child(getuserIDfromintent).child("Status").getValue().toString().equals("received")) {
+
+                        mActivityProfileBinding.sendfriendrequest.setVisibility(View.GONE);
+                        mActivityProfileBinding.cancelrequest.setVisibility(View.GONE);
+                        mActivityProfileBinding.acceptfriendrequest.setVisibility(View.VISIBLE);
+                        mActivityProfileBinding.declinerequest.setVisibility(View.VISIBLE);
 
                     }
 
@@ -86,19 +107,18 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-
-                    if(dataSnapshot.getKey().equals(getuserIDfromintent)) {
+                    if(snapshot.hasChild(getuserIDfromintent)) {
 
                         mActivityProfileBinding.acceptfriendrequest.setVisibility(View.GONE);
                         mActivityProfileBinding.sendfriendrequest.setVisibility(View.GONE);
+                        mActivityProfileBinding.declinerequest.setVisibility(View.GONE);
                         mActivityProfileBinding.cancelrequest.setVisibility(View.GONE);
                         mActivityProfileBinding.chatbutton.setVisibility(View.VISIBLE);
                         mActivityProfileBinding.unfrienduser.setVisibility(View.VISIBLE);
+                        mActivityProfileBinding.displayuserfriendtimeperiod.setText("Friends since " + snapshot.child(getuserIDfromintent).child("Date").getValue().toString());
+                        mActivityProfileBinding.displayuserfriendtimeperiod.setVisibility(View.VISIBLE);
 
                     }
-
-                }
 
             }
 
@@ -141,8 +161,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                 final String currentDate = DateFormat.getDateInstance().format(new Date());
                 mActivityProfileBinding.acceptfriendrequest.setVisibility(View.GONE);
+                mActivityProfileBinding.declinerequest.setVisibility(View.GONE);
                 mActivityProfileBinding.chatbutton.setVisibility(View.VISIBLE);
                 mActivityProfileBinding.unfrienduser.setVisibility(View.VISIBLE);
+                mActivityProfileBinding.displayuserfriendtimeperiod.setText("Friends since "+ currentDate);
+                mActivityProfileBinding.displayuserfriendtimeperiod.setVisibility(View.VISIBLE);
                 mFirebaseDatabase.getReference().child("Friends").child(mFirebaseAuth.getCurrentUser().getUid()).child(getuserIDfromintent).child("Date").setValue(currentDate).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
@@ -180,9 +203,24 @@ public class ProfileActivity extends AppCompatActivity {
 
                 mActivityProfileBinding.chatbutton.setVisibility(View.GONE);
                 mActivityProfileBinding.unfrienduser.setVisibility(View.GONE);
+                mActivityProfileBinding.displayuserfriendtimeperiod.setText("Friends");
+                mActivityProfileBinding.displayuserfriendtimeperiod.setVisibility(View.GONE);
                 mActivityProfileBinding.sendfriendrequest.setVisibility(View.VISIBLE);
                 mFirebaseDatabase.getReference().child("Friends").child(mFirebaseAuth.getCurrentUser().getUid()).child(getuserIDfromintent).removeValue();
                 mFirebaseDatabase.getReference().child("Friends").child(getuserIDfromintent).child(mFirebaseAuth.getCurrentUser().getUid()).removeValue();
+
+            }
+        });
+
+        mActivityProfileBinding.declinerequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mActivityProfileBinding.declinerequest.setVisibility(View.GONE);
+                mActivityProfileBinding.acceptfriendrequest.setVisibility(View.GONE);
+                mActivityProfileBinding.sendfriendrequest.setVisibility(View.VISIBLE);
+                mFirebaseDatabase.getReference().child("Friend_req").child(mFirebaseAuth.getCurrentUser().getUid()).child(getuserIDfromintent).removeValue();
+                mFirebaseDatabase.getReference().child("Friend_req").child(getuserIDfromintent).child(mFirebaseAuth.getCurrentUser().getUid()).removeValue();
 
             }
         });

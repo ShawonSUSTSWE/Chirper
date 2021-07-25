@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.chirper.Adapters.FriendsAdapter;
 import com.example.chirper.Adapters.UsersAdapter;
 import com.example.chirper.Models.Users;
 import com.example.chirper.R;
@@ -45,7 +46,7 @@ public class FriendsFragment extends Fragment {
         // Inflate the layout for this fragment
         mFragmentFriendsBinding = FragmentFriendsBinding.inflate(inflater, container, false);
 
-        UsersAdapter adapter = new UsersAdapter(list,getContext());
+        FriendsAdapter adapter = new FriendsAdapter(list,getContext());
         mFragmentFriendsBinding.chatRecyclerview.setAdapter(adapter);
 
 

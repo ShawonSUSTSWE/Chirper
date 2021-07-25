@@ -16,6 +16,9 @@ import com.example.chirper.ChatActivity;
 import com.example.chirper.Models.Users;
 import com.example.chirper.ProfileActivity;
 import com.example.chirper.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -49,6 +52,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
         Users user = list.get(position);
         Picasso.get().load(user.getProfile_picture()).placeholder(R.drawable.user_2).into(holder.mImageView);
+        if(user.getEmail()!=null) {
+            holder.Email.setText(user.getEmail());
+        } else {
+            holder.Email.setText(user.getPhoneNo());
+        }
         holder.userName.setText(user.getUsername());
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
