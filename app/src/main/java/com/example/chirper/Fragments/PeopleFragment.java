@@ -2,65 +2,87 @@ package com.example.chirper.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.chirper.Adapters.PeopleAdapter;
+import com.example.chirper.Adapters.UsersAdapter;
+import com.example.chirper.Models.Users;
 import com.example.chirper.R;
+import com.example.chirper.databinding.FragmentChatsBinding;
+import com.example.chirper.databinding.FragmentPeopleBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PeopleFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+
 public class PeopleFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public PeopleFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PeopleFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PeopleFragment newInstance(String param1, String param2) {
-        PeopleFragment fragment = new PeopleFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    FragmentPeopleBinding mFragmentPeopleBinding;
+    ArrayList<Users> list = new ArrayList<>();
+    FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReferenceforFriendStatus;
+    FirebaseAuth mFirebaseAuth;
+    FirebaseUser mFirebaseUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_people, container, false);
+        mFragmentPeopleBinding = FragmentPeopleBinding.inflate(inflater, container, false);
+
+        PeopleAdapter adapter = new PeopleAdapter(list,getContext());
+        mFragmentPeopleBinding.peopleRecyclerview.setAdapter(adapter);
+
+
+
+        LinearLayoutManager mlinearLayoutManager = new LinearLayoutManager(getContext());
+        mFragmentPeopleBinding.peopleRecyclerview.setLayoutManager(mlinearLayoutManager);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        mDatabaseReferenceforFriendStatus = mFirebaseDatabase.getReference("Friend_req/"+mFirebaseUser.getUid());
+        mFirebaseDatabase.getReference().child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                    list.clear();
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+
+                        Users user = snapshot1.getValue(Users.class);
+                        user.setUserId(snapshot1.getKey());
+                        if (!mFirebaseUser.getUid().equals(user.getUserId())) {
+
+                            list.add(user);
+
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+        return mFragmentPeopleBinding.getRoot();
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,19 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chirper.ChatActivity;
-import com.example.chirper.Dashboard;
 import com.example.chirper.Models.Users;
 import com.example.chirper.ProfileActivity;
 import com.example.chirper.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
+public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder>{
 
 
 
@@ -32,7 +33,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
     Context mContext;
 
 
-    public UsersAdapter(ArrayList<Users> list, Context context) {
+    public FriendsAdapter(ArrayList<Users> list, Context context) {
         this.list = list;
         mContext = context;
     }
@@ -40,17 +41,22 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
     @NonNull
     @NotNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.sample_show_users,parent,false);
+    public FriendsAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sample_people,parent,false);
 
-        return new ViewHolder(view);
+        return new FriendsAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull FriendsAdapter.ViewHolder holder, int position) {
 
         Users user = list.get(position);
         Picasso.get().load(user.getProfile_picture()).placeholder(R.drawable.user_2).into(holder.mImageView);
+        if(user.getEmail()!=null) {
+            holder.Email.setText(user.getEmail());
+        } else {
+            holder.Email.setText(user.getPhoneNo());
+        }
         holder.userName.setText(user.getUsername());
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,15 +95,15 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
 
 
         ImageView mImageView;
-        TextView userName, Lastmsg;
+        TextView userName, Email;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
 
 
             mImageView = itemView.findViewById(R.id.profile_image);
-            userName = itemView.findViewById(R.id.userName);
-            Lastmsg = itemView.findViewById(R.id.lastmsg);
+            userName = itemView.findViewById(R.id.userNamepeople);
+            Email = itemView.findViewById(R.id.peopleemail);
 
         }
     }

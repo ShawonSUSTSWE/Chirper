@@ -13,9 +13,7 @@
         android:roundIcon="@mipmap/chirper_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chirper">
-        <activity android:name=".Models.settings.SettingsActivity"></activity>
-        <activity android:name=".Models.Profile.Profile02Activity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".PhoneSignIn" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".SignUpActivity" />

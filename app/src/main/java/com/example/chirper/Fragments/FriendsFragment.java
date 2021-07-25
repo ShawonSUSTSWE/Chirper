@@ -2,65 +2,111 @@ package com.example.chirper.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.chirper.Adapters.FriendsAdapter;
+import com.example.chirper.Adapters.UsersAdapter;
+import com.example.chirper.Models.Users;
 import com.example.chirper.R;
+import com.example.chirper.databinding.FragmentChatsBinding;
+import com.example.chirper.databinding.FragmentFriendsBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FriendsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class FriendsFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public FriendsFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FriendsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FriendsFragment newInstance(String param1, String param2) {
-        FriendsFragment fragment = new FriendsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    FragmentFriendsBinding mFragmentFriendsBinding;
+    ArrayList<Users> list = new ArrayList<>();
+    HashMap<String, Users> Friendlist = new HashMap<>();
+    FirebaseDatabase mFirebaseDatabase;
+    FirebaseAuth mFirebaseAuth;
+    FirebaseUser mFirebaseUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friends, container, false);
+        mFragmentFriendsBinding = FragmentFriendsBinding.inflate(inflater, container, false);
+
+        FriendsAdapter adapter = new FriendsAdapter(list,getContext());
+        mFragmentFriendsBinding.chatRecyclerview.setAdapter(adapter);
+
+
+
+        LinearLayoutManager mlinearLayoutManager = new LinearLayoutManager(getContext());
+        mFragmentFriendsBinding.chatRecyclerview.setLayoutManager(mlinearLayoutManager);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        mFirebaseDatabase.getReference().child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                for ( DataSnapshot dataSnapshot: snapshot.getChildren() ) {
+
+                    Users user = dataSnapshot.getValue(Users.class);
+                    user.setUserId(dataSnapshot.getKey());
+                    if(!mFirebaseUser.getUid().equals(user.getUserId())) {
+
+                        Friendlist.put(dataSnapshot.getKey(), user);
+
+                    }
+
+                }
+                mFirebaseDatabase.getReference().child("Friends/"+mFirebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                        list.clear();
+                        for ( DataSnapshot dataSnapshot: snapshot.getChildren() ) {
+
+                            if(Friendlist.containsKey(dataSnapshot.getKey())) {
+
+                                list.add(Friendlist.get(dataSnapshot.getKey()));
+
+                            }
+
+                        }
+
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        return mFragmentFriendsBinding.getRoot();
     }
 }
