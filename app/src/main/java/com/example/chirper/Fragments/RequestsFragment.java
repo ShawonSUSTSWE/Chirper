@@ -2,65 +2,99 @@ package com.example.chirper.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.chirper.Adapters.RequestsAdapter;
+import com.example.chirper.Models.Users;
 import com.example.chirper.R;
+import com.example.chirper.databinding.FragmentRequestsBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RequestsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+
 public class RequestsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    FragmentRequestsBinding mFragmentRequestsBinding;
+    ArrayList<Users> mUsersArrayList = new ArrayList<>();
+    FirebaseDatabase mFirebaseDatabase;
+    FirebaseAuth mFirebaseAuth;
+    FirebaseUser mFirebaseUser;
 
     public RequestsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CallsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RequestsFragment newInstance(String param1, String param2) {
-        RequestsFragment fragment = new RequestsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_requests, container, false);
+
+        mFragmentRequestsBinding = FragmentRequestsBinding.inflate(inflater, container, false);
+
+        RequestsAdapter adapter = new RequestsAdapter(mUsersArrayList, getContext());
+        mFragmentRequestsBinding.requestRecyclerview.setAdapter(adapter);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        mFragmentRequestsBinding.requestRecyclerview.setLayoutManager(linearLayoutManager);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        mFirebaseDatabase.getReference("Friend_req").child(mFirebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot1) {
+
+                mUsersArrayList.clear();
+                for ( DataSnapshot dataSnapshot: snapshot1.getChildren()) {
+
+                    mFirebaseDatabase.getReference("Users").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot2) {
+
+                            Log.d("Data from Database:", dataSnapshot.getKey() + "   " + dataSnapshot.child("Status").getValue().toString());
+                            Users user = snapshot2.child(dataSnapshot.getKey()).getValue(Users.class);
+                            Log.d("Users:", user.getUserId() + "   " + user.getUsername());
+                            if(dataSnapshot.child("Status").getValue().toString().equals("received")) {
+
+                                mUsersArrayList.add(user);
+                                Log.d("Users:", user.getUserId() + "   " + user.getUsername() + " " + mUsersArrayList.size());
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        return mFragmentRequestsBinding.getRoot();
+
     }
 }

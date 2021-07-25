@@ -36,8 +36,6 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
     ArrayList<Users> people_list;
     Context mContext;
-    private FirebaseDatabase mFirebaseDatabase;
-    private FirebaseAuth mFirebaseAuth;
 
     public PeopleAdapter(ArrayList<Users> people_list, Context context) {
         this.people_list = people_list;
@@ -49,8 +47,6 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        mFirebaseAuth = FirebaseAuth.getInstance();
         View view = LayoutInflater.from(mContext).inflate(R.layout.sample_people,parent,false);
         return new ViewHolder(view);
 

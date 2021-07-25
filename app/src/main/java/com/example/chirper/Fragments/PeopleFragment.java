@@ -38,7 +38,6 @@ public class PeopleFragment extends Fragment {
     FragmentPeopleBinding mFragmentPeopleBinding;
     ArrayList<Users> list = new ArrayList<>();
     FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabaseReferenceforFriendStatus;
     FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
 
@@ -59,7 +58,6 @@ public class PeopleFragment extends Fragment {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        mDatabaseReferenceforFriendStatus = mFirebaseDatabase.getReference("Friend_req/"+mFirebaseUser.getUid());
         mFirebaseDatabase.getReference().child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
