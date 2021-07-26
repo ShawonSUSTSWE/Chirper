@@ -42,6 +42,8 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +66,7 @@ public class ChatActivity extends AppCompatActivity {
     private StorageReference imageMessageStorageRef;
 
 
+    //Commit check
     @Override
     protected void onStop() {
         super.onStop();
