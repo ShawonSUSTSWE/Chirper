@@ -57,10 +57,15 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
         Users user = people_list.get(position);
         Picasso.get().load(user.getProfile_picture()).placeholder(R.drawable.user_2).into(holder.mImageView);
-        if(user.getEmail()!=null) {
+        if(!user.getEmail().equals("No email given")) {
             holder.mTextViewEmail.setText(user.getEmail());
         } else {
             holder.mTextViewEmail.setText(user.getPhoneNo());
+        }
+        if(user.isOnline_status()) {
+            holder.mView.setVisibility(View.VISIBLE);
+        } else {
+            holder.mView.setVisibility(View.GONE);
         }
         holder.mTextViewName.setText(user.getUsername());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +95,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
         ImageView mImageView;
         TextView mTextViewName, mTextViewEmail;
+        View mView;
         
         public ViewHolder(@NonNull @NotNull View itemView) {
 
@@ -98,6 +104,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
             mImageView = itemView.findViewById(R.id.profile_image);
             mTextViewName = itemView.findViewById(R.id.userNamepeople);
             mTextViewEmail = itemView.findViewById(R.id.peopleemail);
+            mView = itemView.findViewById(R.id.online_status_1);
 
         }
     }

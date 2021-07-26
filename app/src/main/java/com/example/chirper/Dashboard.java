@@ -21,7 +21,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 public class Dashboard extends AppCompatActivity
 {
@@ -29,8 +31,24 @@ public class Dashboard extends AppCompatActivity
     private FirebaseAuth mFirebaseAuth;
     private ActivityDashboardBinding mActivityDashboardBinding;
     FirebaseUser mFirebaseUser;
-    GoogleSignInClient mGoogleSignInClient;
     private FirebaseDatabase mDashboardDatabase;
+    private DatabaseReference mDatabaseReferenceUsers;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mDatabaseReferenceUsers.child("lastseen").setValue("true");
+        mDatabaseReferenceUsers.child("online_status").setValue(true);
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mDatabaseReferenceUsers.child("lastseen").onDisconnect().setValue(ServerValue.TIMESTAMP);
+        mDatabaseReferenceUsers.child("online_status").onDisconnect().setValue(false);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +60,7 @@ public class Dashboard extends AppCompatActivity
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mDashboardDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
         mDashboardDatabase.getReference().keepSynced(true);
+        mDatabaseReferenceUsers = mDashboardDatabase.getReference().child("Users").child(mFirebaseUser.getUid());
 
         mActivityDashboardBinding.viewpager.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));
         mActivityDashboardBinding.tablayout.setupWithViewPager(mActivityDashboardBinding.viewpager);
@@ -101,9 +120,12 @@ public class Dashboard extends AppCompatActivity
 
             case R.id.logout:
 
+                String idpass = mFirebaseUser.getUid();
+                mDatabaseReferenceUsers.child("lastseen").setValue(ServerValue.TIMESTAMP);
                 mFirebaseAuth.signOut();
                 Intent intent_log = new Intent(Dashboard.this, SignInActivity.class);
                 intent_log.putExtra("Previous intent", "Dashboard");
+                intent_log.putExtra("online_status_checker", idpass);
                 startActivity(intent_log);
                 finish();
                 break;

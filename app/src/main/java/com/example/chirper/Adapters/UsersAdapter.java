@@ -51,6 +51,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
 
         Users user = list.get(position);
         Picasso.get().load(user.getProfile_picture()).placeholder(R.drawable.user_2).into(holder.mImageView);
+        if(user.isOnline_status()) {
+            holder.mView.setVisibility(View.VISIBLE);
+        } else {
+            holder.mView.setVisibility(View.GONE);
+        }
         holder.userName.setText(user.getUsername());
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +95,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
 
         ImageView mImageView;
         TextView userName, Lastmsg;
+        View mView;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -98,6 +104,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
             mImageView = itemView.findViewById(R.id.profile_image);
             userName = itemView.findViewById(R.id.userName);
             Lastmsg = itemView.findViewById(R.id.lastmsg);
+            mView = itemView.findViewById(R.id.online_status_2);
 
         }
     }

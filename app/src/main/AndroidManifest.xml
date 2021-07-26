@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/chirper_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Chirper">
+        android:theme="@style/Theme.Chirper"
+        android:name=".Chirperapp">
         <activity
             android:name=".ChatActivity"
             android:theme="@style/Theme.Chirper.NoActionBar"></activity>

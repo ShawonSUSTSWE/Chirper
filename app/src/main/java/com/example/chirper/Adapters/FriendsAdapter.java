@@ -18,6 +18,7 @@ import com.example.chirper.ProfileActivity;
 import com.example.chirper.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
@@ -52,10 +53,15 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
         Users user = list.get(position);
         Picasso.get().load(user.getProfile_picture()).placeholder(R.drawable.user_2).into(holder.mImageView);
-        if(user.getEmail()!=null) {
+        if(!user.getEmail().equals("No email given")) {
             holder.Email.setText(user.getEmail());
         } else {
             holder.Email.setText(user.getPhoneNo());
+        }
+        if(user.isOnline_status()) {
+            holder.mView.setVisibility(View.VISIBLE);
+        } else {
+            holder.mView.setVisibility(View.GONE);
         }
         holder.userName.setText(user.getUsername());
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +101,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
         ImageView mImageView;
         TextView userName, Email;
+        View mView;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -103,6 +110,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             mImageView = itemView.findViewById(R.id.profile_image);
             userName = itemView.findViewById(R.id.userNamepeople);
             Email = itemView.findViewById(R.id.peopleemail);
+            mView = itemView.findViewById(R.id.online_status_1);
 
         }
     }

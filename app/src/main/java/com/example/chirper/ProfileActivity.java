@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -32,7 +33,14 @@ public class ProfileActivity extends AppCompatActivity {
     private ActivityProfileBinding mActivityProfileBinding;
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mFirebaseAuth;
-    private DatabaseReference mDatabaseReferenceFriendreq, mDatabaseReferenceFriend;
+    private DatabaseReference mDatabaseReferenceFriendreq, mDatabaseReferenceFriend, mDatabaseReferenceUsers;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mDatabaseReferenceUsers.child("lastseen").onDisconnect().setValue(ServerValue.TIMESTAMP);
+        mDatabaseReferenceUsers.child("online_status").onDisconnect().setValue(false);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReferenceFriendreq = mFirebaseDatabase.getReference("Friend_req");
         mDatabaseReferenceFriend = mFirebaseDatabase.getReference("Friends");
+        mDatabaseReferenceUsers = mFirebaseDatabase.getReference().child("Users").child(mFirebaseAuth.getCurrentUser().getUid());
 
         String getusernamefromintent = getIntent().getStringExtra("Username");
         String getuserIDfromintent = getIntent().getStringExtra("UserID");
@@ -52,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         if(getusernamefromintent!=null)
             mActivityProfileBinding.displayusername.setText(getusernamefromintent);
-        if(getuserpicfromintent!= null)
+        if(!getuserpicfromintent.equals("default"))
             Picasso.get().load(getuserpicfromintent).into(mActivityProfileBinding.circleImageView);
 
         mDatabaseReferenceFriendreq.child(mFirebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {

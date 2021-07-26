@@ -47,7 +47,7 @@
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar2"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="60dp"
             android:background="@color/ChirperColor"
             tools:layout_editor_absoluteX="79dp"
             tools:layout_editor_absoluteY="0dp">
@@ -76,6 +76,13 @@
                 app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profile_user_picture"
+                app:layout_constraintTop_toTopOf="parent">
             <TextView
                 android:id="@+id/usernameinchat"
                 android:layout_width="wrap_content"
@@ -83,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:layout_marginLeft="5dp"
-                android:text="Mohammed Mazhar Ali Shawon"
+                android:text="Username"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -92,10 +99,16 @@
                 android:scrollHorizontally="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:singleLine="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/profile_user_picture"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:singleLine="true" />
+                <TextView
+                    android:id="@+id/online_timestamp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LastSeen"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/audiocall"

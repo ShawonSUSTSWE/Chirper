@@ -121,6 +121,10 @@ public class SignInActivity extends AppCompatActivity {
         String E_mail = getIntent().getStringExtra("Verified_Email");
         String PASS = getIntent().getStringExtra("PASS");
         String prev = getIntent().getStringExtra("Previous intent");
+        if(prev.equals("Dashboard")) {
+            String online_checker = getIntent().getStringExtra("online_status_checker");
+            mFirebaseDatabase.getReference().child("Users").child(online_checker).child("online_status").setValue(false);
+        }
 
         Log.d(TAG,prev);
 
