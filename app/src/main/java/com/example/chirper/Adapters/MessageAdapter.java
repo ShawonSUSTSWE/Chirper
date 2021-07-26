@@ -5,19 +5,24 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.chirper.Models.MessageModel;
 import com.example.chirper.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter {
@@ -62,13 +67,32 @@ public class MessageAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
         MessageModel messageModel = mMessagesModelList.get(position);
+        String msg_type = messageModel.getType();
 
         if (holder.getClass() == SenderViewHolder.class) {
-            ((SenderViewHolder)holder).mMessage.setText(messageModel.getMessage());
-            ((SenderViewHolder)holder).mTime.setText(Long.toString(messageModel.getTime()));
+            if(msg_type.equals("text")) {
+                ((SenderViewHolder) holder).senderimageview.setVisibility(View.GONE);
+                ((SenderViewHolder) holder).mMessage.setVisibility(View.VISIBLE);
+                ((SenderViewHolder) holder).mMessage.setText(messageModel.getMessage());
+                ((SenderViewHolder) holder).mTime.setText(Long.toString(messageModel.getTime()));
+            } else {
+                ((SenderViewHolder) holder).mMessage.setVisibility(View.GONE);
+                ((SenderViewHolder) holder).senderimageview.setVisibility(View.VISIBLE);
+                Glide.with(mContext).load(messageModel.getMessage()).into(((SenderViewHolder)holder).senderimageview);
+                ((SenderViewHolder) holder).mTime.setText(Long.toString(messageModel.getTime()));
+            }
         } else {
-            ((ReceiverViewHolder)holder).mMessagerec.setText(messageModel.getMessage());
-            ((ReceiverViewHolder)holder).mTimerec.setText(Long.toString(messageModel.getTime()));
+            if (msg_type.equals("text")) {
+                ((ReceiverViewHolder) holder).receiverimageview.setVisibility(View.GONE);
+                ((ReceiverViewHolder) holder).mMessagerec.setVisibility(View.VISIBLE);
+                ((ReceiverViewHolder) holder).mMessagerec.setText(messageModel.getMessage());
+                ((ReceiverViewHolder) holder).mTimerec.setText(Long.toString(messageModel.getTime()));
+            } else {
+                ((ReceiverViewHolder) holder).mMessagerec.setVisibility(View.GONE);
+                ((ReceiverViewHolder) holder).receiverimageview.setVisibility(View.VISIBLE);
+                Glide.with(mContext).load(messageModel.getMessage()).into(((ReceiverViewHolder) holder).receiverimageview);
+                ((ReceiverViewHolder) holder).mTimerec.setText(Long.toString(messageModel.getTime()));
+            }
         }
     }
 
@@ -80,23 +104,27 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public class SenderViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mMessage, mTime;
+        public ImageView senderimageview;
 
         public SenderViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
 
             mMessage = itemView.findViewById(R.id.sendermessage);
             mTime = itemView.findViewById(R.id.sendertime);
+            senderimageview = itemView.findViewById(R.id.senderimage);
         }
     }
     public class ReceiverViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mMessagerec, mTimerec;
+        public ImageView receiverimageview;
 
         public ReceiverViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
 
             mMessagerec = itemView.findViewById(R.id.receivermessage);
             mTimerec = itemView.findViewById(R.id.receivertime);
+            receiverimageview = itemView.findViewById(R.id.receiverimage);
         }
     }
 }
