@@ -86,7 +86,7 @@
             <TextView
                 android:id="@+id/usernameinchat"
                 android:layout_width="wrap_content"
-                android:maxWidth="150dp"
+                android:maxWidth="200dp"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:layout_marginLeft="5dp"
