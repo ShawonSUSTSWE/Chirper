@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Models.settings.SettingsActivity">
+    tools:context=".SettingsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/faceIcon01"/>
+                    android:src="@drawable/faceicon01"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <view
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#E6E6E6"/>
@@ -67,7 +67,7 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/Key03"/>
+                    android:src="@drawable/key03"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -100,8 +100,7 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/Chat"
-                     />
+                    android:src="@drawable/chat" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -134,7 +133,7 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/Notification"/>
+                    android:src="@drawable/notification"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -167,7 +166,7 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/Data"/>
+                    android:src="@drawable/data"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -200,7 +199,7 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/Help"/>
+                    android:src="@drawable/help"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -233,7 +232,7 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/Freiends"/>
+                    android:src="@drawable/freiends"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

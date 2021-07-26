@@ -74,24 +74,24 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 ((SenderViewHolder) holder).senderimageview.setVisibility(View.GONE);
                 ((SenderViewHolder) holder).mMessage.setVisibility(View.VISIBLE);
                 ((SenderViewHolder) holder).mMessage.setText(messageModel.getMessage());
-                ((SenderViewHolder) holder).mTime.setText(Long.toString(messageModel.getTime()));
+                //((SenderViewHolder) holder).mTime.setText(Long.toString(messageModel.getTime()));
             } else {
                 ((SenderViewHolder) holder).mMessage.setVisibility(View.GONE);
                 ((SenderViewHolder) holder).senderimageview.setVisibility(View.VISIBLE);
                 Glide.with(mContext).load(messageModel.getMessage()).into(((SenderViewHolder)holder).senderimageview);
-                ((SenderViewHolder) holder).mTime.setText(Long.toString(messageModel.getTime()));
+                //((SenderViewHolder) holder).mTime.setText(Long.toString(messageModel.getTime()));
             }
         } else {
             if (msg_type.equals("text")) {
                 ((ReceiverViewHolder) holder).receiverimageview.setVisibility(View.GONE);
                 ((ReceiverViewHolder) holder).mMessagerec.setVisibility(View.VISIBLE);
                 ((ReceiverViewHolder) holder).mMessagerec.setText(messageModel.getMessage());
-                ((ReceiverViewHolder) holder).mTimerec.setText(Long.toString(messageModel.getTime()));
+                //((ReceiverViewHolder) holder).mTimerec.setText(Long.toString(messageModel.getTime()));
             } else {
                 ((ReceiverViewHolder) holder).mMessagerec.setVisibility(View.GONE);
                 ((ReceiverViewHolder) holder).receiverimageview.setVisibility(View.VISIBLE);
                 Glide.with(mContext).load(messageModel.getMessage()).into(((ReceiverViewHolder) holder).receiverimageview);
-                ((ReceiverViewHolder) holder).mTimerec.setText(Long.toString(messageModel.getTime()));
+                //((ReceiverViewHolder) holder).mTimerec.setText(Long.toString(messageModel.getTime()));
             }
         }
     }

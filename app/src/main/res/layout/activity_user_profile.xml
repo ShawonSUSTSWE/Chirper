@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Models.Profile.Profile02Activity">
+    tools:context=".UserProfileActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:titleTextColor="@color/white"
-            app:title="Profile">
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +17,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/faceIcon01"/>
+            android:src="@drawable/user_2"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_camera"
             android:layout_width="wrap_content"
@@ -50,7 +36,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -65,9 +53,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp">
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
+                        android:padding="5dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
@@ -87,16 +77,9 @@
                     android:textSize="15sp"
                     android:textColor="@color/black"
                     android:text="UserName"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textColor="#171616"
-                    android:layout_marginTop="10dp"
-                    android:text="This is not your username or pin. This name will be visible to your Chirper contact"/>
             </LinearLayout>
         </LinearLayout>
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#EAEAEA"/>
@@ -145,7 +128,7 @@
                     android:text="Hello there! I'm using Chirper"/>
             </LinearLayout>
         </LinearLayout>
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#EAEAEA"/>
@@ -193,10 +176,9 @@
                     android:text="+880 ##########"/>
             </LinearLayout>
         </LinearLayout>
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#EAEAEA"/>
     </LinearLayout>
 </LinearLayout>
-</layout>
