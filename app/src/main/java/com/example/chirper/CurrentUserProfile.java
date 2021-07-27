@@ -43,17 +43,19 @@ public class CurrentUserProfile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
-                Users user = snapshot.child(mFirebaseAuth.getCurrentUser().getUid()).getValue(Users.class);
-                if(!user.getProfile_picture().equals("default")) {
-                    Picasso.get().load(user.getProfile_picture()).into(mActivityCurrentUserProfileBinding.circleImageView);
+                if(mFirebaseAuth.getCurrentUser()!= null) {
+                    Users user = snapshot.child(mFirebaseAuth.getCurrentUser().getUid()).getValue(Users.class);
+                    if (!user.getProfile_picture().equals("default")) {
+                        Picasso.get().load(user.getProfile_picture()).into(mActivityCurrentUserProfileBinding.circleImageView);
+                    }
+                    if (user.getUsername() != null) {
+                        mActivityCurrentUserProfileBinding.displaycusername.setText(user.getUsername());
+                    }
+                    mActivityCurrentUserProfileBinding.displaycuseremail.setText(user.getEmail());
+                    mActivityCurrentUserProfileBinding.displaycusereaddress.setText(user.getAddress());
+                    mActivityCurrentUserProfileBinding.displaycuserBio.setText(user.getBio());
+                    mActivityCurrentUserProfileBinding.displaycuserphone.setText(user.getPhoneNo());
                 }
-                if(user.getUsername()!= null) {
-                    mActivityCurrentUserProfileBinding.displaycusername.setText(user.getUsername());
-                }
-                mActivityCurrentUserProfileBinding.displaycuseremail.setText(user.getEmail());
-                mActivityCurrentUserProfileBinding.displaycusereaddress.setText(user.getAddress());
-                mActivityCurrentUserProfileBinding.displaycuserBio.setText(user.getBio());
-                mActivityCurrentUserProfileBinding.displaycuserphone.setText(user.getPhoneNo());
 
             }
 

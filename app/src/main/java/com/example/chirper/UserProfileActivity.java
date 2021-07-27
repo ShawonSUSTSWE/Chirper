@@ -62,17 +62,19 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
-                Users user = snapshot.child(mFirebaseAuth.getCurrentUser().getUid()).getValue(Users.class);
-                if(!user.getProfile_picture().equals("default")) {
-                    Picasso.get().load(user.getProfile_picture()).into(mActivityUserProfileBinding.imageProfile);
+                if(mFirebaseAuth.getCurrentUser()!=null) {
+                    Users user = snapshot.child(mFirebaseAuth.getCurrentUser().getUid()).getValue(Users.class);
+                    if (!user.getProfile_picture().equals("default")) {
+                        Picasso.get().load(user.getProfile_picture()).into(mActivityUserProfileBinding.imageProfile);
+                    }
+                    if (user.getUsername() != null) {
+                        mActivityUserProfileBinding.editFullName.setText(user.getUsername());
+                    }
+                    mActivityUserProfileBinding.editUserEmail.setText(user.getEmail());
+                    mActivityUserProfileBinding.editUserAddress.setText(user.getAddress());
+                    mActivityUserProfileBinding.editBio.setText(user.getBio());
+                    mActivityUserProfileBinding.editUserPhoneNo.setText(user.getPhoneNo());
                 }
-                if(user.getUsername()!= null) {
-                    mActivityUserProfileBinding.editFullName.setText(user.getUsername());
-                }
-                mActivityUserProfileBinding.editUserEmail.setText(user.getEmail());
-                mActivityUserProfileBinding.editUserAddress.setText(user.getAddress());
-                mActivityUserProfileBinding.editBio.setText(user.getBio());
-                mActivityUserProfileBinding.editUserPhoneNo.setText(user.getPhoneNo());
 
             }
 
