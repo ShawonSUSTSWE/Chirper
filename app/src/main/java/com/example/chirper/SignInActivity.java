@@ -348,11 +348,33 @@ public class SignInActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser mUser = mFirebaseAuth.getCurrentUser();
                             mGoogleProgressDialog.dismiss();
+                            mFirebaseDatabase.getReference().child("Users").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                    if(!snapshot.hasChild(mUser.getUid())) {
 
-                            Users user = new Users(mUser.getPhotoUrl().toString(), mUser.getDisplayName(), mUser.getEmail(), mUser.getUid(),
-                                    "No phone number given", defaultBio, "No address given", true);
+                                        Users user = new Users(mUser.getPhotoUrl().toString(), mUser.getDisplayName(), mUser.getEmail(), mUser.getUid(),
+                                                "No phone number given", defaultBio, "No address given", true);
+                                        mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).setValue(user);
 
-                            mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).setValue(user);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                                }
+                            });
+/*
+                            mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).child("username").setValue(mUser.getDisplayName());
+                            mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).child("profile_picture").setValue(mUser.getPhotoUrl().toString());
+                            mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).child("address").setValue("No address given");
+                            mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).child("bio").setValue(defaultBio);
+                            mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).child("phoneNo").setValue("No phone number given");
+                            mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).child("userId").setValue(mUser.getUid());
+                            mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).child("email").setValue(mUser.getEmail());
+                            mFirebaseDatabase.getReference().child("Users").child(mUser.getUid()).child("online_status").setValue(true);
+*/
 
                             Intent intent3 = new Intent(SignInActivity.this,Dashboard.class);
                             startActivity(intent3);

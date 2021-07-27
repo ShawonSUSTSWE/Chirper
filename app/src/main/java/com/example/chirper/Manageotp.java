@@ -20,7 +20,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.TimeUnit;
 
@@ -107,11 +112,25 @@ public class Manageotp extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             String id = mAuth.getCurrentUser().getUid();
-                            Users user = new Users("default",name,"No email given",phonenumber,id,defaultBio,"No address given",true);
-                            mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
-                            mFirebaseDatabase.getReference().child("Users").child(id).child("phoneNo").setValue(phonenumber);
-                            mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).setValue(user);
-                            mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).child("phoneNo").setValue(phonenumber);
+                            mFirebaseDatabase.getReference().child("Users").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                    if(!snapshot.hasChild(id)) {
+
+                                        Users user = new Users("default",name,"No email given",phonenumber,id,defaultBio,"No address given",true);
+                                        mFirebaseDatabase.getReference().child("Users").child(id).setValue(user);
+                                        mFirebaseDatabase.getReference().child("Users").child(id).child("phoneNo").setValue(phonenumber);
+                                        mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).setValue(user);
+                                        mFirebaseDatabase.getReference().child("Mobile Users").child(phonenumber).child("phoneNo").setValue(phonenumber);
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                                }
+                            });
                             startActivity(new Intent(Manageotp.this,Dashboard.class));
                             finish();
 
