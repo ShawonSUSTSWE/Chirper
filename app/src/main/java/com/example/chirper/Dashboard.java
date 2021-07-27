@@ -109,13 +109,14 @@ public class Dashboard extends AppCompatActivity
 
             case R.id.user_profile:
 
-                Intent profileintent = new Intent(Dashboard.this, ProfileActivity.class);
+                Intent profileintent = new Intent(Dashboard.this, CurrentUserProfile.class);
                 startActivity(profileintent);
                 break;
 
             case R.id.settings:
 
-                Toast.makeText(Dashboard.this,"Settings selected",Toast.LENGTH_SHORT).show();
+                Intent settingintent = new Intent(Dashboard.this, SettingsActivity.class);
+                startActivity(settingintent);
                 break;
 
             case R.id.logout:

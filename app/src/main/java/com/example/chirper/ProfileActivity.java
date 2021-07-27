@@ -10,6 +10,7 @@ import android.renderscript.ScriptGroup;
 import android.view.View;
 
 import com.example.chirper.Fragments.ChatsFragment;
+import com.example.chirper.Models.Users;
 import com.example.chirper.databinding.ActivityProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseReferenceFriendreq, mDatabaseReferenceFriend, mDatabaseReferenceUsers;
+    private DatabaseReference mUsersref;
 
     @Override
     protected void onStop() {
@@ -48,21 +51,41 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mActivityProfileBinding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(mActivityProfileBinding.getRoot());
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Profile");
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://chirper-f0c29-default-rtdb.asia-southeast1.firebasedatabase.app/");
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReferenceFriendreq = mFirebaseDatabase.getReference("Friend_req");
         mDatabaseReferenceFriend = mFirebaseDatabase.getReference("Friends");
         mDatabaseReferenceUsers = mFirebaseDatabase.getReference().child("Users").child(mFirebaseAuth.getCurrentUser().getUid());
+        mUsersref = mFirebaseDatabase.getReference().child("Users");
 
         String getusernamefromintent = getIntent().getStringExtra("Username");
         String getuserIDfromintent = getIntent().getStringExtra("UserID");
         String getuserpicfromintent = getIntent().getStringExtra("Userpic");
 
-        if(getusernamefromintent!=null)
-            mActivityProfileBinding.displayusername.setText(getusernamefromintent);
-        if(!getuserpicfromintent.equals("default"))
-            Picasso.get().load(getuserpicfromintent).into(mActivityProfileBinding.circleImageView);
+        mUsersref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                Users user = snapshot.child(getuserIDfromintent).getValue(Users.class);
+                if(!user.getProfile_picture().equals("default")) {
+                    Picasso.get().load(user.getProfile_picture()).networkPolicy(NetworkPolicy.OFFLINE).into(mActivityProfileBinding.circleImageView);
+                }
+                if(user.getUsername()!= null) {
+                    mActivityProfileBinding.displayusername.setText(user.getUsername());
+                }
+                mActivityProfileBinding.displayuseremail.setText(user.getEmail());
+                mActivityProfileBinding.displayusereaddress.setText(user.getAddress());
+                mActivityProfileBinding.displayuserBio.setText(user.getBio());
+                mActivityProfileBinding.displayuserphone.setText(user.getPhoneNo());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
 
         mDatabaseReferenceFriendreq.child(mFirebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override

@@ -78,7 +78,7 @@ public class ChatsFragment extends Fragment {
                     }
 
                 }
-                mFirebaseDatabase.getReference().child("Friends/"+mFirebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+                mFirebaseDatabase.getReference().child("Messages/"+mFirebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 

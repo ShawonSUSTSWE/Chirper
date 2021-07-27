@@ -137,6 +137,7 @@
                 app:fabSize="normal"
                 app:srcCompat="@drawable/fb"
                 app:tint = "@null"
+                android:visibility="gone"
                 />
             <com.facebook.login.widget.LoginButton
                 android:id = "@+id/fbactuallogin"

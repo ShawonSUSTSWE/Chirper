@@ -6,57 +6,51 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SettingsActivity">
-
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:title="Settings"
-        app:titleMargin="4dp"
-        app:titleTextColor="@android:color/white" />
+        android:layout_height="60dp"
+        android:background="@color/ChirperColor"
+        tools:layout_editor_absoluteX="79dp"
+        tools:layout_editor_absoluteY="0dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/backbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:foreground="?attr/selectableItemBackgroundBorderless"/>
+
+            <TextView
+                android:id="@+id/page_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textColor="@color/white"
+                android:layout_marginLeft="5dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/backbutton"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_height="match_parent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15sp"
-                android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:src="@drawable/faceicon01"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="UserName"
-                        android:textColor="@android:color/black"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hello! I'm here to explore the world."/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E6E6E6"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,11 +77,6 @@
                         android:textSize="16sp"
                         android:text="Account"
                         android:textColor="@color/black"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:text="Privacy, Security, Change Number"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -100,106 +89,7 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/chat" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="Chats"
-                        android:textColor="@color/black"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:text="Themes, Wallpapers, chat history"/>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15sp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/notification"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="Notifications"
-                        android:textColor="@color/black"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:text="Messages, Groups, Calls"/>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15sp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/data"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="Data and Storage Usage"
-                        android:textColor="@color/black"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:text="Network, Usage, Auto Download"/>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15sp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/help"/>
+                    android:src="@drawable/ic_baseline_info_24"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -215,11 +105,6 @@
                         android:textSize="16sp"
                         android:text="Help"
                         android:textColor="@color/black"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:text="FAQ, Contact Us, Privacy Policy"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -232,7 +117,7 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/freiends"/>
+                    android:src="@drawable/ic_baseline_smartphone_24"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -246,7 +131,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="Invite Friends"
+                        android:text="About this App"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_baseline_contact_support_24"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="Contact Us"
                         android:textColor="@color/black"/>
 
                 </LinearLayout>

@@ -49,7 +49,8 @@
             app:layout_constraintBottom_toTopOf="@+id/sendertime"
             app:layout_constraintEnd_toStartOf="@+id/sender_guideline"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"/>
+            app:layout_constraintVertical_bias="1.0"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/sendertime"

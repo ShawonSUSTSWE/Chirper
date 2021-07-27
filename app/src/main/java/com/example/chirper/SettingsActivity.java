@@ -16,5 +16,6 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mActivitySettingsBinding = ActivitySettingsBinding.inflate(getLayoutInflater());
         setContentView(mActivitySettingsBinding.getRoot());
+        setSupportActionBar(mActivitySettingsBinding.toolbar2);
     }
 }

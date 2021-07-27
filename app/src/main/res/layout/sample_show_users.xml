@@ -51,6 +51,7 @@
             android:ellipsize="end"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"/>
         <TextView
@@ -59,6 +60,7 @@
             android:maxWidth="300dp"
             android:maxLines="1"
             android:ellipsize="end"
+            android:textColor="@color/black"
             android:text="Last message"
             android:id="@+id/lastmsg"
             android:textSize="16sp"
