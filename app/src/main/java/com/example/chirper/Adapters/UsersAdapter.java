@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chirper.ChatActivity;
@@ -18,6 +19,12 @@ import com.example.chirper.ProfileActivity;
 import com.example.chirper.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +37,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
 
     ArrayList<Users> list;
     Context mContext;
+    private DatabaseReference mDatabaseReferencemsg;
+    String lastmsgtype, lastmsgtext;
 
 
     public UsersAdapter(ArrayList<Users> list, Context context) {
@@ -42,6 +51,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.sample_show_users,parent,false);
+        mDatabaseReferencemsg = FirebaseDatabase.getInstance().getReference().child("Messages").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         return new ViewHolder(view);
     }
@@ -50,12 +60,49 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
         Users user = list.get(position);
+        final String user_id = user.getUserId();
         Picasso.get().load(user.getProfile_picture()).placeholder(R.drawable.user_2).into(holder.mImageView);
         if(user.isOnline_status()) {
             holder.mView.setVisibility(View.VISIBLE);
         } else {
             holder.mView.setVisibility(View.GONE);
         }
+        Query lastmsg = mDatabaseReferencemsg.child(user_id).limitToLast(1);
+        lastmsg.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+                if(snapshot.child("type").getValue().toString().equals("text")) {
+                    holder.Lastmsg.setText(snapshot.child("message").getValue().toString());
+                } else {
+                    if(snapshot.child("from").getValue().toString().equals(user_id)) {
+                        holder.Lastmsg.setText("Image received");
+                    } else {
+                        holder.Lastmsg.setText("Image sent");
+                    }
+
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
         holder.userName.setText(user.getUsername());
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override

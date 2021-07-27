@@ -94,6 +94,7 @@ public class ChatActivity extends AppCompatActivity {
         receivername = getIntent().getStringExtra("Username");
         receiverimage = getIntent().getStringExtra("Userpic");
         mSender = mFirebaseDatabase.getReference().child("Users").child(receiverid);
+        mFirebaseDatabase.getReference().keepSynced(true);
 
 
 
